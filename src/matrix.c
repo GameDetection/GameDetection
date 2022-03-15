@@ -3,9 +3,12 @@
 //
 #include <stdio.h>
 #include <stdlib.h>
-#include "math.h"
-#include "model.h"
+#include "inc/matrix.h"
 
+/**
+ * @param matrix1
+ * affiche la matrice
+ */
 void printMatrix(matrix matrix1) {
     double **mat = matrix1.mat;
     for (int i = 0; i < matrix1.nbl; i++) {
@@ -15,7 +18,12 @@ void printMatrix(matrix matrix1) {
         printf("\n");
     }
 }
-
+/**
+ * @param nbC nombre de colonnes
+ * @param nbL nombre de lignes
+ * @param value valeur à mettre dans la matrice
+ * @return une matrice de taille nbL*nbC avec toutes les valeurs égales à value
+ */
 matrix makeMatrix(int nbC, int nbL, double value) {
     double **matrix1 = malloc(nbL * sizeof(double *));
 
@@ -34,21 +42,11 @@ matrix makeMatrix(int nbC, int nbL, double value) {
     return matrix2;
 }
 
-layer makeLayer(int m, int nbVar) {
-
-    matrix input = makeMatrix(nbVar,m,1);
-
-    matrix weight = makeMatrix(1,nbVar,1);
-
-    matrix cons = makeMatrix(1,m,1);
-
-    layer layer1;
-    layer1.input = input;
-    layer1.weight = weight;
-    layer1.cons = cons;
-    return layer1;
-}
-
+/**
+ * @param matrix1
+ * @param matrix2
+ * @return retourne la matrice issus de la multiplication de deux matrices
+ */
 matrix multiplyMatrix(matrix matrix1, matrix matrix2) {
 
     matrix newMatrix = makeMatrix(matrix2.nbc,matrix1.nbl,0);
@@ -66,6 +64,11 @@ matrix multiplyMatrix(matrix matrix1, matrix matrix2) {
     }
     return newMatrix;
 }
+/**
+ * @return retourne la matrice issus de l'addition de deux matrices
+ * @param matrix1
+ * @param matrix2
+ */
 matrix addMatrix(matrix matrix1, matrix matrix2) {
     matrix newMatrix = makeMatrix(matrix2.nbc,matrix1.nbl,0);
 //    printf("%d %d, %d %d", matrix2.nbc, matrix1.nbc, matrix1.nbl)
@@ -81,6 +84,5 @@ matrix addMatrix(matrix matrix1, matrix matrix2) {
     return newMatrix;
 }
 
-matrix doZ(layer layer1) {
-    return addMatrix(layer1.cons,multiplyMatrix(layer1.input, layer1.weight));
-}
+
+
