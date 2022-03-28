@@ -31,4 +31,5 @@ typedef struct model {
 layer makeLayer(int nbP, int nbVar);
 
 matrix doZ(layer layer1);
-#endif //GAMEDETECTION_MODEL_H
+matrix doA(matrix Z);
+#endif GAMEDETECTION_MODEL_H

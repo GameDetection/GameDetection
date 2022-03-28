@@ -18,4 +18,9 @@ matrix makeMatrix(int nbC, int nbL, double value);
 
 matrix multiplyMatrix(matrix matrix1, matrix matrix2);
 matrix addMatrix(matrix matrix1, matrix matrix2);
-#endif //GAMEDETECTION_MATRIX_H
+matrix lnMatrix(matrix matrix1);
+matrix expMatrix(matrix matrix1);
+double sumMatrix(matrix matrix1);
+matrix changeSigneMatrix(matrix matrix1);
+matrix lessMatrix(matrix matrix1, matrix matrix2);
+#endif GAMEDETECTION_MATRIX_H

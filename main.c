@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "inc/model.h"
-
+#include "inc/matrix.h"
 int main() {
 
 //    matrix matrix1 = makeMatrix(2,2,5);
@@ -26,13 +26,20 @@ int main() {
 //    printf("\n");
 //    printMatrix(matrix3);
 
-    layer layer1 = makeLayer(3,2);
-    printMatrix(layer1.cons);
-    printf("\n");
-    printMatrix(layer1.weight);
-    printf("\n");
-    printMatrix(layer1.input);
-    printf("\n");
-    printMatrix(doZ(layer1));
+//    layer layer1 = makeLayer(3,2);
+//    printMatrix(layer1.cons);
+//    printf("\n");
+//    printMatrix(layer1.weight);
+//    printf("\n");
+//    printMatrix(layer1.input);
+//    printf("\n");
+//    matrix Z = doZ(layer1);
+//    printMatrix(Z);
+//    printf("\n");
+//    matrix A = doA(Z);
+//    printMatrix(A);
+
+    matrix matrix1 = makeMatrix(3,1,5);
+    printf("%lf",sumMatrix(matrix1));
 
 }

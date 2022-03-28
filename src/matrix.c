@@ -3,6 +3,7 @@
 //
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include "inc/matrix.h"
 
 /**
@@ -79,6 +80,79 @@ matrix addMatrix(matrix matrix1, matrix matrix2) {
             }
         }
     } else{
+        printf("Dimentions incorecte\n");
+    }
+    return newMatrix;
+}
+/**
+ * @param matrix1
+ * @return retourne le logarithme népérien de la matrice
+ */
+matrix lnMatrix(matrix matrix1) {
+    matrix newMatrix = makeMatrix(matrix1.nbc,matrix1.nbl,0);
+    for (int i = 0; i < matrix1.nbl; ++i) {
+        for (int j = 0; j < matrix1.nbc; ++j) {
+            newMatrix.mat[i][j] = log(matrix1.mat[i][j]);
+        }
+    }
+    return newMatrix;
+}
+/**
+ * @param matrix1
+ * @return retourne l'exponentielle de la matrice
+ */
+matrix expMatrix(matrix matrix1) {
+    matrix newMatrix = makeMatrix(matrix1.nbc,matrix1.nbl,0);
+    for (int i = 0; i < matrix1.nbl; ++i) {
+        for (int j = 0; j < matrix1.nbc; ++j) {
+            newMatrix.mat[i][j] = exp(matrix1.mat[i][j]);
+        }
+    }
+    return newMatrix;
+}
+/**
+ *
+ * @param matrix1
+ * @return
+ */
+double sumMatrix(matrix matrix1) {
+    double res = 0;
+    for (int i = 0; i < matrix1.nbl; ++i) {
+        for (int j = 0; j < matrix1.nbc; ++j) {
+            res += matrix1.mat[i][j];
+        }
+    }
+    return res;
+}
+/**
+ *
+ * @param matrix1
+ * @return
+ */
+matrix changeSigneMatrix(matrix matrix1) {
+    matrix newMatrix = makeMatrix(matrix1.nbc,matrix1.nbl,0);
+    for (int i = 0; i < matrix1.nbl; ++i) {
+        for (int j = 0; j < matrix1.nbc; ++j) {
+            newMatrix.mat[i][j] = -(matrix1.mat[i][j]);
+        }
+    }
+    return newMatrix;
+}
+/**
+ *
+ * @param matrix1
+ * @param matrix2
+ * @return retourne la matrice issue soustraction de deux matrices
+ */
+matrix lessMatrix(matrix matrix1, matrix matrix2) {
+    matrix newMatrix = makeMatrix(matrix2.nbc,matrix1.nbl,0);
+    if (matrix2.nbc == matrix1.nbc && matrix1.nbl == matrix2.nbl) {
+        for (int i = 0; i < matrix1.nbl; ++i) {
+            for (int j = 0; j < matrix2.nbc; ++j) {
+                newMatrix.mat[i][j] = matrix1.mat[i][j] - matrix2.mat[i][j];
+            }
+        }
+    } else {
         printf("Dimentions incorecte\n");
     }
     return newMatrix;
