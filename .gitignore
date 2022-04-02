@@ -53,3 +53,4 @@ dkms.conf
 /CMakeLists.txt
 /cmake-build-debug/
 /CMakeFiles/
+/cmake-build-debug-visual-studio/
