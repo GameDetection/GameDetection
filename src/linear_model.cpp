@@ -4,7 +4,7 @@
 #include <Eigen>
 #include <random>
 #include <iostream>
-#include "../inc/model.h"
+#include "../inc/linear_model.h"
 using namespace Eigen;
 
 /**
@@ -12,7 +12,7 @@ using namespace Eigen;
  * @param model
  * @return
  */
-float predict_C(Model model) {
+float predict_C(Linear_model model) {
     float total;
     MatrixXf res = model.Xk * model.W.transpose();
     total = res(0,0) + model.b;
@@ -32,7 +32,7 @@ float predict_C(Model model) {
  * @param model
  * @return
  */
-float predict(float Xarray[],int Xrows, int Xcols, Model model) {
+float predict(float Xarray[], int Xrows, int Xcols, Linear_model model) {
     model.b;
     model.W;
     MatrixXf Xk = getMatrixFromLineMatrix(Xarray, Xrows, Xcols);
@@ -78,7 +78,7 @@ MatrixXf getMatrixFromLineMatrix(float table[], int rows, int cols) {
  * @param learning_rate
  * @return
  */
-Model model_train(Model model, float Xarray[], int Xrows, int Xcols, float Yarray[],int Yrows, int Ycols, int epochs, float learning_rate) {
+Linear_model model_train(Linear_model model, float Xarray[], int Xrows, int Xcols, float Yarray[], int Yrows, int Ycols, int epochs, float learning_rate) {
 
     MatrixXf X = getMatrixFromLineMatrix(Xarray, Xrows, Xcols);
     MatrixXf Y = getMatrixFromLineMatrix(Yarray, Yrows, Ycols);
@@ -120,8 +120,8 @@ Model model_train(Model model, float Xarray[], int Xrows, int Xcols, float Yarra
  * @param b
  * @return model
  */
-Model create_linear_model(int nbInput, int b) {
-    Model model;
+Linear_model create_linear_model(int nbInput, int b) {
+    Linear_model model;
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_real_distribution<> dist(-0.99, 0.99);
