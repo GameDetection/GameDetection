@@ -1,5 +1,5 @@
 //
-// Created by Carmo on 30/03/2022.
+// Created by Alexandre Carmone on 30/03/2022.
 //
 #include <Eigen>
 #ifndef GAMEDETECTIONPP_MODEL_H
