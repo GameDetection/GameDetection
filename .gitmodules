@@ -1,0 +1,3 @@
+[submodule "Data_set_initz"]
+	path = Data_set_initz
+	url = git@github.com:GameDetection/Data_set_initz.git
