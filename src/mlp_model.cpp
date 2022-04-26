@@ -109,33 +109,12 @@ void train(Mlp_model* model, MatrixXf inputs, MatrixXf Y, float learningRate, in
                 }
                 model->Delta(layerID) = (One - model->X(layerID).cwiseProduct(model->X(layerID))).cwiseProduct(res);
 
+            }
+            if (layerID > 0) {
                 for (int neurID = 0; neurID < model->W(layerID).size(); ++neurID) {
-
-                    auto m = learningRate * model->X(layerID + 1) * (model->Delta(layerID)(neurID));
-                    std::cout << "m = " << m << std::endl;
-                    std::cout << "W = " << model->W(layerID)(neurID) << std::endl;
-//                    model->W(layerID)(neurID) = model->W(layerID)(neurID) - learningRate * model->X(layerID + 1).cwiseProduct(model->Delta(layerID + 1)) ;
+                    model->W(layerID)(neurID) -= learningRate * model->X(layerID - 1) * model->Delta(layerID)(neurID);
                 }
             }
-
-
-
         }
-//        std::cout << "Delta" << std::endl;
-//        for (int couchID = 0; couchID < model->Delta.size(); ++couchID) {
-//            std::cout << "couche" << std::endl;
-//            std::cout << model->Delta(couchID) << std::endl;
-//        }
-
-//        for (int layerID = model->W.size() - 1; layerID >= 0 ; --layerID) {
-//            std::cout << "Couche = " << layerID << std::endl;
-//            VectorXf res(model->W(layerID)(0).size());
-//            res.setZero();
-//            for (int neurID = 0; neurID < model->Delta(layerID).size(); ++neurID) {
-//                std::cout << "neurID = " << neurID << std::endl;
-//                res += (model->Delta(layerID)(neurID) * model->W(layerID)(neurID));
-//            }
-//            std::cout << res << std::endl;
-//        }
     }
 }
