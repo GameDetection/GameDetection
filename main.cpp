@@ -3,41 +3,45 @@
 #include "inc/mlp_model.h"
 #include <chrono>
 using namespace Eigen;
-using namespace std;
 
-void printLayer(auto layer) {
-    for (int layerID = 0; layerID < layer.size(); ++layerID) {
-        std::cout << " Layer " << layerID << std::endl;
-        for (int neurID = 0; neurID < layer(layerID).size(); ++neurID) {
-            std::cout << " neur " << neurID << std::endl;
-            std::cout << layer(layerID)(neurID) << std::endl;
-        }
-    }
+//This function multiply the input vector with the weight matrix and then add the bias
+MatrixXd multiply_and_add(MatrixXd input, MatrixXd weight, MatrixXd bias)
+{
+    MatrixXd result = input * weight;
+    result = result + bias;
+    return result;
 }
 
 int main() {
+
+
     srand((unsigned int) time(0));
+    //calculate the time of the program
 
-    int tab[3] = {4,3,1};
-    MatrixXf input(1,4);
-    input.setConstant(10);
 
-    MatrixXf Y(1,1);
-    Y(0,0) = 1;
+    // Initialize the model
+    int nlp[3] = {2, 2, 1};
+    Mlp_model *model = create_mlp_model(nlp, 3);
 
-    Mlp_model* model = create_mlp_model(tab,3);
+    // Initialize the data
+    // The data is a matrix of size (n, m) where n is the number of samples and m is the number of features
+    //X is a linear matrix of size (n, m)
+    //Y is a linear matrix of size (n)
+    //malloc data here
 
-    VectorXf res = predict(model, input.row(0), 1);
-    std::cout << "Prediction: " << res << "\n";
-    auto start = std::chrono::high_resolution_clock::now();
-    train(model, input, Y, 0.0001, 40000, 1);
-    auto end = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> diff = end-start;
-    std::cout << "Training time: " << diff.count() << " s\n";
+    float X[4][2] = {{0, 0}, {0, 1}, {1, 0}, {1, 1}};
+    float Y[4] = {0, 1, 1, 0};
 
-    std::cout << "Input: " << input.row(0) << "\n";
-    res = predict(model, input.row(0), 1);
-    std::cout << "Prediction: " << res << "\n";
+    train_mlp_model(model, reinterpret_cast<float *>(X), 4, 2, Y, 4, 0.01, 100000, 1);
+
+
+
+//    std::cout << "Time taken by function: " << diff.count() << " seconds" << std::endl;
+
+//    save_model_to_csv(model, "C:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection/model.csv");
+
+//    model = load_model("C:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection/model.txt");
+
     return 0;
 }
 

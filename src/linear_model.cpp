@@ -66,7 +66,7 @@ MatrixXf getMatrixFromLineMatrix(float table[], int rows, int cols) {
 }
 
 /**
- * This function train the model with the given data
+ * This function train_mlp_model the model with the given data
  * @param model
  * @param Xarray
  * @param Xrows
@@ -84,6 +84,7 @@ Linear_model model_train(Linear_model model, float Xarray[], int Xrows, int Xcol
     MatrixXf Y = getMatrixFromLineMatrix(Yarray, Yrows, Ycols);
     int k = 0;
     for (int j = 0; j < epochs; ++j) {
+
         k = rand() % X.rows();
 
         float Yk = Y(0,k);
