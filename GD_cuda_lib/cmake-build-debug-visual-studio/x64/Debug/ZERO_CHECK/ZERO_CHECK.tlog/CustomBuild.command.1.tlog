@@ -1,0 +1,10 @@
+^C:\USERS\CARMO\ONEDRIVE\DOCUMENTS\ESGI\PROJET_ANNUEL\GAMEDETECTION_CUDA\CMAKE-BUILD-DEBUG-VISUAL-STUDIO\CMAKEFILES\21922557892803C7D99F06808CCAA1C7\GENERATE.STAMP.RULE
+setlocal
+C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\bin\cmake.exe -SC:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection_CUDA -BC:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection_CUDA/cmake-build-debug-visual-studio --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection_CUDA/cmake-build-debug-visual-studio/vector_operator.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

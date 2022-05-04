@@ -1,0 +1,10 @@
+^C:\USERS\CARMO\ONEDRIVE\DOCUMENTS\ESGI\PROJET_ANNUEL\GAMEDETECTION_CUDA\CMAKELISTS.TXT
+setlocal
+C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\bin\cmake.exe -SC:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection_CUDA -BC:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection_CUDA/cmake-build-debug-visual-studio --check-stamp-file C:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection_CUDA/cmake-build-debug-visual-studio/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

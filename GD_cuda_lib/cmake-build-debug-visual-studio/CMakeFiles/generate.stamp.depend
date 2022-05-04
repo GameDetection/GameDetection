@@ -1,0 +1,18 @@
+# CMake generation dependency list for this directory.
+C:/Users/Carmo/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/221.5080.224/bin/cmake/win/share/cmake-3.22/Modules/CMakeCUDAInformation.cmake
+C:/Users/Carmo/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/221.5080.224/bin/cmake/win/share/cmake-3.22/Modules/CMakeCommonLanguageInclude.cmake
+C:/Users/Carmo/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/221.5080.224/bin/cmake/win/share/cmake-3.22/Modules/CMakeGenericSystem.cmake
+C:/Users/Carmo/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/221.5080.224/bin/cmake/win/share/cmake-3.22/Modules/CMakeInitializeConfigs.cmake
+C:/Users/Carmo/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/221.5080.224/bin/cmake/win/share/cmake-3.22/Modules/CMakeRCInformation.cmake
+C:/Users/Carmo/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/221.5080.224/bin/cmake/win/share/cmake-3.22/Modules/CMakeSystemSpecificInformation.cmake
+C:/Users/Carmo/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/221.5080.224/bin/cmake/win/share/cmake-3.22/Modules/CMakeSystemSpecificInitialize.cmake
+C:/Users/Carmo/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/221.5080.224/bin/cmake/win/share/cmake-3.22/Modules/Compiler/CMakeCommonCompilerMacros.cmake
+C:/Users/Carmo/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/221.5080.224/bin/cmake/win/share/cmake-3.22/Modules/Compiler/NVIDIA-CUDA.cmake
+C:/Users/Carmo/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/221.5080.224/bin/cmake/win/share/cmake-3.22/Modules/Platform/Windows-MSVC.cmake
+C:/Users/Carmo/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/221.5080.224/bin/cmake/win/share/cmake-3.22/Modules/Platform/Windows-NVIDIA-CUDA.cmake
+C:/Users/Carmo/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/221.5080.224/bin/cmake/win/share/cmake-3.22/Modules/Platform/Windows.cmake
+C:/Users/Carmo/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/221.5080.224/bin/cmake/win/share/cmake-3.22/Modules/Platform/WindowsPaths.cmake
+C:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection_CUDA/CMakeLists.txt
+C:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection_CUDA/cmake-build-debug-visual-studio/CMakeFiles/3.22.3/CMakeCUDACompiler.cmake
+C:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection_CUDA/cmake-build-debug-visual-studio/CMakeFiles/3.22.3/CMakeRCCompiler.cmake
+C:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection_CUDA/cmake-build-debug-visual-studio/CMakeFiles/3.22.3/CMakeSystem.cmake

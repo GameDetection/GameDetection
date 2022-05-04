@@ -1,0 +1,144 @@
+The system is: Windows - 10.0.22000 - AMD64
+Compiling the CUDA compiler identification source file "CMakeCUDACompilerId.cu" succeeded.
+Compiler:  
+Build flags: 
+Id flags: --keep;--keep-dir;tmp -v
+
+The output was:
+0
+Microsoft (R) Build Engine version 17.0.0+c9eb9dd64 pour .NET Framework
+Copyright (C) Microsoft Corporation. Tous droits réservés.
+
+La génération a démarré 03/05/2022 20:07:30.
+Projet "C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\cmake-build-debug-visual-studio\CMakeFiles\3.22.3\CompilerIdCUDA\CompilerIdCUDA.vcxproj" sur le noud 1 (cibles par défaut).
+PrepareForBuild:
+  Création du répertoire "Debug\".
+  Création du répertoire "Debug\CompilerIdCUDA.tlog\".
+InitializeBuildStatus:
+  Création de "Debug\CompilerIdCUDA.tlog\unsuccessfulbuild", car "AlwaysCreate" a été spécifié.
+AddCudaCompileDeps:
+  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.30.30705\bin\HostX64\x64\cl.exe /E /nologo /showIncludes /TP /D__CUDACC__ /D__CUDACC_VER_MAJOR__=11 /D__CUDACC_VER_MINOR__=6 /D_MBCS /I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.6\include" /I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.6\bin" /I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.6\include" /I. /FIcuda_runtime.h /c C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\cmake-build-debug-visual-studio\CMakeFiles\3.22.3\CompilerIdCUDA\CMakeCUDACompilerId.cu 
+Le projet "C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\cmake-build-debug-visual-studio\CMakeFiles\3.22.3\CompilerIdCUDA\CompilerIdCUDA.vcxproj" (1) génère "C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\cmake-build-debug-visual-studio\CMakeFiles\3.22.3\CompilerIdCUDA\CompilerIdCUDA.vcxproj" (1:2) sur le noud 1 (CudaBuildCore cible(s)).
+CudaBuildCore:
+  Compiling CUDA source file CMakeCUDACompilerId.cu...
+  Création du répertoire "C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\cmake-build-debug-visual-studio\CMakeFiles\3.22.3\CompilerIdCUDA\x64\Debug".
+  cmd.exe /C "C:\Users\Carmo\AppData\Local\Temp\tmp36102cf14c6d4428a13f245c7ccef168.cmd"
+  "C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.6\bin\nvcc.exe"  --use-local-env -ccbin "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.30.30705\bin\HostX64\x64" -x cu   -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.6\include" -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.6\include"  -G   --keep-dir x64\Debug  -maxrregcount=0  --machine 64 --compile -cudart static -v -g  -D_MBCS -Xcompiler "/EHsc /W0 /nologo /Od /FdDebug\vc143.pdb /FS /Zi /RTC1 /MDd " -o C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\cmake-build-debug-visual-studio\CMakeFiles\3.22.3\CompilerIdCUDA\x64\Debug\CMakeCUDACompilerId.cu.obj "C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\cmake-build-debug-visual-studio\CMakeFiles\3.22.3\CompilerIdCUDA\CMakeCUDACompilerId.cu"
+  
+  C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\cmake-build-debug-visual-studio\CMakeFiles\3.22.3\CompilerIdCUDA>"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.6\bin\nvcc.exe"  --use-local-env -ccbin "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.30.30705\bin\HostX64\x64" -x cu   -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.6\include" -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.6\include"  -G   --keep-dir x64\Debug  -maxrregcount=0  --machine 64 --compile -cudart static -v -g  -D_MBCS -Xcompiler "/EHsc /W0 /nologo /Od /FdDebug\vc143.pdb /FS /Zi /RTC1 /MDd " -o C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\cmake-build-debug-visual-studio\CMakeFiles\3.22.3\CompilerIdCUDA\x64\Debug\CMakeCUDACompilerId.cu.obj "C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\cmake-build-debug-visual-studio\CMakeFiles\3.22.3\CompilerIdCUDA\CMakeCUDACompilerId.cu" 
+  #$ _NVVM_BRANCH_=nvvm
+  #$ _SPACE_= 
+  #$ _CUDART_=cudart
+  #$ _HERE_=C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.6\bin
+  #$ _THERE_=C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.6\bin
+  #$ _TARGET_SIZE_=
+  #$ _TARGET_DIR_=
+  #$ _TARGET_SIZE_=64
+  #$ _WIN_PLATFORM_=x64
+  #$ TOP=C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.6\bin/..
+  #$ NVVMIR_LIBRARY_DIR=C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.6\bin/../nvvm/libdevice
+  #$ PATH=C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.6\bin/../nvvm/bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.6\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.6\bin/../lib;C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.30.30705\bin\HostX64\x64;C:\Program Files (x86)\Windows Kits\10\bin\10.0.19041.0\x64;;C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools\x64;C:\Program Files (x86)\Windows Kits\10\bin\10.0.19041.0\x86;;C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\tools;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\ide;C:\Program Files (x86)\HTML Help Workshop;;C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\amd64;C:\Windows\Microsoft.NET\Framework64\v4.0.30319\;C:\Windows\Microsoft.NET\Framework\v4.0.30319\;C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin;C:\Windows\Microsoft.NET\Framework\v4.0.30319\;;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\\Extensions\Microsoft\IntelliCode\CLI;C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.30.30705\bin\HostX86\x64;C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.30.30705\bin\HostX86\x86;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\VC\VCPackages;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\TestWindow;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer;C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\bin\Roslyn;C:\Program Files\Microsoft Visual Studio\2022\Community\Team Tools\Performance Tools\x64;C:\Program Files\Microsoft Visual Studio\2022\Community\Team Tools\Performance Tools;C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools\;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\FSharp\Tools;C:\Program Files (x86)\Windows Kits\10\bin\10.0.19041.0\\x86;C:\Program Files (x86)\Windows Kits\10\bin\\x86;C:\Program Files\Microsoft Visual Studio\2022\Community\\MSBuild\Current\Bin\amd64;C:\Windows\Microsoft.NET\Framework\v4.0.30319;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\Tools\;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.6\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.6\libnvvp;C:\Program Files\Microsoft\jdk-11.0.12.7-hotspot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files\dotnet\;C:\Program Files (x86)\FAHClient;C:\Program Files\Git\cmd;C:\Program Files\NVIDIA Corporation\Nsight Compute 2022.1.1\;C:\Users\Carmo\anaconda3;C:\Users\Carmo\anaconda3\Library\mingw-w64\bin;C:\Users\Carmo\anaconda3\Library\usr\bin;C:\Users\Carmo\anaconda3\Library\bin;C:\Users\Carmo\anaconda3\Scripts;C:\Users\Carmo\AppData\Local\Microsoft\WindowsApps;C:\Users\Carmo\.dotnet\tools;C:\Program Files\CMake\bin;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\Ninja;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\VC\Linux\bin\ConnectionManagerExe;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.6\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.6\libnvvp;C:\Program Files\Microsoft\jdk-11.0.12.7-hotspot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files\dotnet\;C:\Program Files (x86)\FAHClient;C:\Program Files\Git\cmd;C:\Program Files\NVIDIA Corporation\Nsight Compute 2022.1.1\;C:\Users\Carmo\anaconda3;C:\Users\Carmo\anaconda3\Library\mingw-w64\bin;C:\Users\Carmo\anaconda3\Library\usr\bin;C:\Users\Carmo\anaconda3\Library\bin;C:\Users\Carmo\anaconda3\Scripts;C:\Users\Carmo\AppData\Local\Microsoft\WindowsApps;C:\Users\Carmo\.dotnet\tools;C:\Program Files\CMake\bin;
+  #$ INCLUDES="-IC:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.6\bin/../include"  
+  #$ LIBRARIES=  "/LIBPATH:C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.6\bin/../lib/x64"
+  #$ CUDAFE_FLAGS=--sdk_dir "C:\Program Files (x86)\Windows Kits\10"
+  #$ PTXAS_FLAGS=
+  CMakeCUDACompilerId.cu
+  #$ cl.exe @"C:\Users\Carmo\AppData\Local\Temp/tmpxft_00003678_00000000-9.res" > "C:/Users/Carmo/AppData/Local/Temp/tmpxft_00003678_00000000-8_CMakeCUDACompilerId.cpp1.ii" 
+  CMakeCUDACompilerId.cu
+  #$ erase C:\Users\Carmo\AppData\Local\Temp/tmpxft_00003678_00000000-9.res
+  #$ cicc --microsoft_version=1930 --msvc_target_version=1930 --compiler_bindir "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.30.30705/bin/HostX64/x64/../../../../../../.." --sdk_dir "C:/Program Files (x86)/Windows Kits/10/" --display_error_number --orig_src_file_name "C:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection_CUDA/cmake-build-debug-visual-studio/CMakeFiles/3.22.3/CompilerIdCUDA/CMakeCUDACompilerId.cu" --orig_src_path_name "C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\cmake-build-debug-visual-studio\CMakeFiles\3.22.3\CompilerIdCUDA\CMakeCUDACompilerId.cu" --allow_managed --debug_mode --sdk_dir "C:\Program Files (x86)\Windows Kits\10"  -arch compute_52 -m64 --no-version-ident -ftz=0 -prec_div=1 -prec_sqrt=1 -fmad=1 --include_file_name "tmpxft_00003678_00000000-4_CMakeCUDACompilerId.fatbin.c" -g -O0 -tused --gen_module_id_file --module_id_file_name "C:/Users/Carmo/AppData/Local/Temp/tmpxft_00003678_00000000-5_CMakeCUDACompilerId.module_id" --gen_c_file_name "C:/Users/Carmo/AppData/Local/Temp/tmpxft_00003678_00000000-7_CMakeCUDACompilerId.cudafe1.c" --stub_file_name "C:/Users/Carmo/AppData/Local/Temp/tmpxft_00003678_00000000-7_CMakeCUDACompilerId.cudafe1.stub.c" --gen_device_file_name "C:/Users/Carmo/AppData/Local/Temp/tmpxft_00003678_00000000-7_CMakeCUDACompilerId.cudafe1.gpu"  "C:/Users/Carmo/AppData/Local/Temp/tmpxft_00003678_00000000-8_CMakeCUDACompilerId.cpp1.ii" -o "C:/Users/Carmo/AppData/Local/Temp/tmpxft_00003678_00000000-7_CMakeCUDACompilerId.ptx"
+  #$ ptxas -arch=sm_52 -m64 -g --dont-merge-basicblocks --return-at-end "C:/Users/Carmo/AppData/Local/Temp/tmpxft_00003678_00000000-7_CMakeCUDACompilerId.ptx"  -o "C:/Users/Carmo/AppData/Local/Temp/tmpxft_00003678_00000000-10_CMakeCUDACompilerId.sm_52.cubin" 
+  #$ fatbinary -64 --ident="C:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection_CUDA/cmake-build-debug-visual-studio/CMakeFiles/3.22.3/CompilerIdCUDA/CMakeCUDACompilerId.cu" --cmdline="-g --dont-merge-basicblocks --return-at-end " --cicc-cmdline="-ftz=0 -prec_div=1 -prec_sqrt=1 -fmad=1 " -g "--image3=kind=elf,sm=52,file=C:/Users/Carmo/AppData/Local/Temp/tmpxft_00003678_00000000-10_CMakeCUDACompilerId.sm_52.cubin" "--image3=kind=ptx,sm=52,file=C:/Users/Carmo/AppData/Local/Temp/tmpxft_00003678_00000000-7_CMakeCUDACompilerId.ptx" --embedded-fatbin="C:/Users/Carmo/AppData/Local/Temp/tmpxft_00003678_00000000-4_CMakeCUDACompilerId.fatbin.c" 
+  #$ erase C:/Users/Carmo/AppData/Local/Temp/tmpxft_00003678_00000000-4_CMakeCUDACompilerId.fatbin
+  #$ cl.exe @"C:\Users\Carmo\AppData\Local\Temp/tmpxft_00003678_00000000-11.res" > "C:/Users/Carmo/AppData/Local/Temp/tmpxft_00003678_00000000-6_CMakeCUDACompilerId.cpp4.ii" 
+  CMakeCUDACompilerId.cu
+  #$ erase C:\Users\Carmo\AppData\Local\Temp/tmpxft_00003678_00000000-11.res
+  #$ cudafe++ --microsoft_version=1930 --msvc_target_version=1930 --compiler_bindir "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.30.30705/bin/HostX64/x64/../../../../../../.." --sdk_dir "C:/Program Files (x86)/Windows Kits/10/" --display_error_number --orig_src_file_name "C:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection_CUDA/cmake-build-debug-visual-studio/CMakeFiles/3.22.3/CompilerIdCUDA/CMakeCUDACompilerId.cu" --orig_src_path_name "C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\cmake-build-debug-visual-studio\CMakeFiles\3.22.3\CompilerIdCUDA\CMakeCUDACompilerId.cu" --allow_managed --debug_mode --sdk_dir "C:\Program Files (x86)\Windows Kits\10" --m64 --parse_templates --gen_c_file_name "C:/Users/Carmo/AppData/Local/Temp/tmpxft_00003678_00000000-7_CMakeCUDACompilerId.cudafe1.cpp" --stub_file_name "tmpxft_00003678_00000000-7_CMakeCUDACompilerId.cudafe1.stub.c" --module_id_file_name "C:/Users/Carmo/AppData/Local/Temp/tmpxft_00003678_00000000-5_CMakeCUDACompilerId.module_id" "C:/Users/Carmo/AppData/Local/Temp/tmpxft_00003678_00000000-6_CMakeCUDACompilerId.cpp4.ii" 
+  #$ cl.exe @"C:\Users\Carmo\AppData\Local\Temp/tmpxft_00003678_00000000-12.res" -Fo"C:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection_CUDA/cmake-build-debug-visual-studio/CMakeFiles/3.22.3/CompilerIdCUDA/x64/Debug/CMakeCUDACompilerId.cu.obj" 
+  tmpxft_00003678_00000000-7_CMakeCUDACompilerId.cudafe1.cpp
+  #$ erase C:\Users\Carmo\AppData\Local\Temp/tmpxft_00003678_00000000-12.res
+Génération du projet "C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\cmake-build-debug-visual-studio\CMakeFiles\3.22.3\CompilerIdCUDA\CompilerIdCUDA.vcxproj" terminée (CudaBuildCore cible(s)).
+Link:
+  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.30.30705\bin\HostX64\x64\link.exe /ERRORREPORT:QUEUE /OUT:".\CompilerIdCUDA.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.6\lib\x64" cudart_static.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\CompilerIdCUDA.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\CompilerIdCUDA.lib" /MACHINE:X64 "C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\cmake-build-debug-visual-studio\CMakeFiles\3.22.3\CompilerIdCUDA\x64\Debug\CMakeCUDACompilerId.cu.obj"
+     Création de la bibliothèque .\CompilerIdCUDA.lib et de l'objet .\CompilerIdCUDA.exp
+  CompilerIdCUDA.vcxproj -> C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\cmake-build-debug-visual-studio\CMakeFiles\3.22.3\CompilerIdCUDA\CompilerIdCUDA.exe
+PostBuildEvent:
+  echo CMAKE_CUDA_COMPILER=C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.6\bin\nvcc.exe
+  :VCEnd
+  CMAKE_CUDA_COMPILER=C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.6\bin\nvcc.exe
+FinalizeBuildStatus:
+  Suppression du fichier "Debug\CompilerIdCUDA.tlog\unsuccessfulbuild".
+  Mise à jour de l'horodatage "Debug\CompilerIdCUDA.tlog\CompilerIdCUDA.lastbuildstate".
+Génération du projet "C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\cmake-build-debug-visual-studio\CMakeFiles\3.22.3\CompilerIdCUDA\CompilerIdCUDA.vcxproj" terminée (cibles par défaut).
+
+La génération a réussi.
+    0 Avertissement(s)
+    0 Erreur(s)
+
+Temps écoulé 00:00:02.82
+
+
+Compilation of the CUDA compiler identification source "CMakeCUDACompilerId.cu" produced "CompilerIdCUDA.exe"
+
+Compilation of the CUDA compiler identification source "CMakeCUDACompilerId.cu" produced "CompilerIdCUDA.exp"
+
+Compilation of the CUDA compiler identification source "CMakeCUDACompilerId.cu" produced "CompilerIdCUDA.lib"
+
+Compilation of the CUDA compiler identification source "CMakeCUDACompilerId.cu" produced "CompilerIdCUDA.vcxproj"
+
+The CUDA compiler identification is NVIDIA, found in "C:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection_CUDA/cmake-build-debug-visual-studio/CMakeFiles/3.22.3/CompilerIdCUDA/CompilerIdCUDA.exe"
+
+Parsed CUDA nvcc include information from above output:
+  found 'INCLUDES=' string: ["-IC:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.6\bin/../include"  ]
+
+
+
+Detecting CUDA compiler ABI info compiled with the following output:
+Change Dir: C:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection_CUDA/cmake-build-debug-visual-studio/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_5a938.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:m && Microsoft (R) Build Engine version 17.0.0+c9eb9dd64 pour .NET Framework
+Copyright (C) Microsoft Corporation. Tous droits réservés.
+
+  Compiling CUDA source file ..\..\..\..\..\..\..\..\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\CMakeCUDACompilerABI.cu...
+  
+  C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\cmake-build-debug-visual-studio\CMakeFiles\CMakeTmp>"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.6\bin\nvcc.exe" -gencode=arch=compute_52,code=\"compute_52,compute_52\" -gencode=arch=compute_52,code=\"sm_52,compute_52\" --use-local-env -ccbin "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.30.30705\bin\HostX64\x64" -x cu    -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.6\include"     --keep-dir x64\Debug  -maxrregcount=0  --machine 64 --compile -cudart static -Xcompiler="/EHsc -Zi -Ob0 -v" -g  -D_WINDOWS -D"CMAKE_INTDIR=\"Debug\"" -D_MBCS -D"CMAKE_INTDIR=\"Debug\"" -Xcompiler "/EHsc /W1 /nologo /Od /FdcmTC_5a938.dir\Debug\vc143.pdb /FS /Zi /RTC1 /MDd " -o cmTC_5a938.dir\Debug\CMakeCUDACompilerABI.obj "C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\CMakeCUDACompilerABI.cu" 
+cl : Ligne de commande warning D9002: option '-v' inconnue ignorée [C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\cmake-build-debug-visual-studio\CMakeFiles\CMakeTmp\cmTC_5a938.vcxproj]
+cl : Ligne de commande warning D9002: option '-v' inconnue ignorée [C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\cmake-build-debug-visual-studio\CMakeFiles\CMakeTmp\cmTC_5a938.vcxproj]
+  CMakeCUDACompilerABI.cu
+cl : Ligne de commande warning D9002: option '-v' inconnue ignorée [C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\cmake-build-debug-visual-studio\CMakeFiles\CMakeTmp\cmTC_5a938.vcxproj]
+LINK : warning LNK4044: option '/v' non reconnue ; ignorée [C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\cmake-build-debug-visual-studio\CMakeFiles\CMakeTmp\cmTC_5a938.vcxproj]
+     Création de la bibliothèque C:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection_CUDA/cmake-build-debug-visual-studio/CMakeFiles/CMakeTmp/Debug/cmTC_5a938.lib et de l'objet C:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection_CUDA/cmake-build-debug-visual-studio/CMakeFiles/CMakeTmp/Debug/cmTC_5a938.exp
+  cmTC_5a938.vcxproj -> C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\cmake-build-debug-visual-studio\CMakeFiles\CMakeTmp\Debug\cmTC_5a938.exe
+
+
+
+Parsed CUDA implicit include dir info from above output: rv=start
+  warn: unable to parse implicit include dirs!
+
+
+Parsed CUDA implicit link information from above output:
+  link line regex: [^( *|.*[/\])(link\.exe|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+  ignore line: [Change Dir: C:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection_CUDA/cmake-build-debug-visual-studio/CMakeFiles/CMakeTmp]
+  ignore line: []
+  ignore line: [Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_5a938.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:m && Microsoft (R) Build Engine version 17.0.0+c9eb9dd64 pour .NET Framework]
+  ignore line: [Copyright (C) Microsoft Corporation. Tous droits réservés.]
+  ignore line: []
+  ignore line: [  Compiling CUDA source file ..\..\..\..\..\..\..\..\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\CMakeCUDACompilerABI.cu...]
+  ignore line: [  ]
+  ignore line: [  C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\cmake-build-debug-visual-studio\CMakeFiles\CMakeTmp>"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.6\bin\nvcc.exe" -gencode=arch=compute_52 code=\"compute_52 compute_52\" -gencode=arch=compute_52 code=\"sm_52 compute_52\" --use-local-env -ccbin "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.30.30705\bin\HostX64\x64" -x cu    -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.6\include"     --keep-dir x64\Debug  -maxrregcount=0  --machine 64 --compile -cudart static -Xcompiler="/EHsc -Zi -Ob0 -v" -g  -D_WINDOWS -D"CMAKE_INTDIR=\"Debug\"" -D_MBCS -D"CMAKE_INTDIR=\"Debug\"" -Xcompiler "/EHsc /W1 /nologo /Od /FdcmTC_5a938.dir\Debug\vc143.pdb /FS /Zi /RTC1 /MDd " -o cmTC_5a938.dir\Debug\CMakeCUDACompilerABI.obj "C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\CMakeCUDACompilerABI.cu" ]
+  ignore line: [cl : Ligne de commande warning D9002: option '-v' inconnue ignorée [C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\cmake-build-debug-visual-studio\CMakeFiles\CMakeTmp\cmTC_5a938.vcxproj]]
+  ignore line: [cl : Ligne de commande warning D9002: option '-v' inconnue ignorée [C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\cmake-build-debug-visual-studio\CMakeFiles\CMakeTmp\cmTC_5a938.vcxproj]]
+  ignore line: [  CMakeCUDACompilerABI.cu]
+  ignore line: [cl : Ligne de commande warning D9002: option '-v' inconnue ignorée [C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\cmake-build-debug-visual-studio\CMakeFiles\CMakeTmp\cmTC_5a938.vcxproj]]
+  ignore line: [LINK : warning LNK4044: option '/v' non reconnue ]
+  ignore line: [ ignorée [C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\cmake-build-debug-visual-studio\CMakeFiles\CMakeTmp\cmTC_5a938.vcxproj]]
+  ignore line: [     Création de la bibliothèque C:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection_CUDA/cmake-build-debug-visual-studio/CMakeFiles/CMakeTmp/Debug/cmTC_5a938.lib et de l'objet C:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection_CUDA/cmake-build-debug-visual-studio/CMakeFiles/CMakeTmp/Debug/cmTC_5a938.exp]
+  ignore line: [  cmTC_5a938.vcxproj -> C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\cmake-build-debug-visual-studio\CMakeFiles\CMakeTmp\Debug\cmTC_5a938.exe]
+  ignore line: []
+  ignore line: []
+  implicit libs: []
+  implicit objs: []
+  implicit dirs: []
+  implicit fwks: []
+
+

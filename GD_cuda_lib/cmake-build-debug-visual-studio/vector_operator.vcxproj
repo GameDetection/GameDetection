@@ -1,0 +1,387 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{AC5458A7-EC42-3992-A2A6-B61A4499AAAA}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.19041.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>x64</Platform>
+    <ProjectName>vector_operator</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\CUDA 11.6.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\cmake-build-debug-visual-studio\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">vector_operator.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">vector_operator</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\cmake-build-debug-visual-studio\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">vector_operator.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">vector_operator</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\cmake-build-debug-visual-studio\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">vector_operator.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">vector_operator</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\cmake-build-debug-visual-studio\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">vector_operator.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">vector_operator</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\Eigen;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <CudaCompile>
+      <Include>C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\Eigen;%(Include)</Include>
+      <Defines>%(Defines);_WINDOWS;CMAKE_INTDIR="Debug"</Defines>
+      <AdditionalOptions>%(AdditionalOptions) -std=c++17 -Xcompiler="/EHsc -Zi -Ob0"</AdditionalOptions>
+      <CodeGeneration>compute_52,compute_52;compute_52,sm_52</CodeGeneration>
+      <CompileOut>$(IntDir)%(Filename).obj</CompileOut>
+      <CudaRuntime>Static</CudaRuntime>
+      <GPUDebugInfo>false</GPUDebugInfo>
+      <GenerateRelocatableDeviceCode>true</GenerateRelocatableDeviceCode>
+      <Optimization>Od</Optimization>
+      <Runtime>MDd</Runtime>
+      <RuntimeChecks>RTC1</RuntimeChecks>
+      <TargetMachinePlatform>64</TargetMachinePlatform>
+      <UseHostInclude>false</UseHostInclude>
+    </CudaCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\Eigen;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>cudadevrt.lib;cudart_static.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection_CUDA/cmake-build-debug-visual-studio/Debug/vector_operator.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection_CUDA/cmake-build-debug-visual-studio/Debug/vector_operator.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+    <CudaLink>
+      <AdditionalOptions>-forward-unknown-to-host-compiler -Wno-deprecated-gpu-targets </AdditionalOptions>
+      <PerformDeviceLink>true</PerformDeviceLink>
+    </CudaLink>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);CMAKE_INTDIR="Release"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\Eigen;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <CudaCompile>
+      <Include>C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\Eigen;%(Include)</Include>
+      <Defines>%(Defines);_WINDOWS;NDEBUG;CMAKE_INTDIR="Release"</Defines>
+      <AdditionalOptions>%(AdditionalOptions) -std=c++17 -Xcompiler="/EHsc -Ob2"</AdditionalOptions>
+      <CodeGeneration>compute_52,compute_52;compute_52,sm_52</CodeGeneration>
+      <CompileOut>$(IntDir)%(Filename).obj</CompileOut>
+      <CudaRuntime>Static</CudaRuntime>
+      <GPUDebugInfo>false</GPUDebugInfo>
+      <GenerateRelocatableDeviceCode>true</GenerateRelocatableDeviceCode>
+      <Optimization>O2</Optimization>
+      <Runtime>MD</Runtime>
+      <TargetMachinePlatform>64</TargetMachinePlatform>
+      <UseHostInclude>false</UseHostInclude>
+    </CudaCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\Eigen;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>cudadevrt.lib;cudart_static.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection_CUDA/cmake-build-debug-visual-studio/Release/vector_operator.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection_CUDA/cmake-build-debug-visual-studio/Release/vector_operator.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+    <CudaLink>
+      <AdditionalOptions>-forward-unknown-to-host-compiler -Wno-deprecated-gpu-targets </AdditionalOptions>
+      <PerformDeviceLink>true</PerformDeviceLink>
+    </CudaLink>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <ClCompile>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);CMAKE_INTDIR="MinSizeRel"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\Eigen;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <CudaCompile>
+      <Include>C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\Eigen;%(Include)</Include>
+      <Defines>%(Defines);_WINDOWS;NDEBUG;CMAKE_INTDIR="MinSizeRel"</Defines>
+      <AdditionalOptions>%(AdditionalOptions) -std=c++17 -Xcompiler="/EHsc -Ob1"</AdditionalOptions>
+      <CodeGeneration>compute_52,compute_52;compute_52,sm_52</CodeGeneration>
+      <CompileOut>$(IntDir)%(Filename).obj</CompileOut>
+      <CudaRuntime>Static</CudaRuntime>
+      <GPUDebugInfo>false</GPUDebugInfo>
+      <GenerateRelocatableDeviceCode>true</GenerateRelocatableDeviceCode>
+      <Optimization>O1</Optimization>
+      <Runtime>MD</Runtime>
+      <TargetMachinePlatform>64</TargetMachinePlatform>
+      <UseHostInclude>false</UseHostInclude>
+    </CudaCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\Eigen;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>cudadevrt.lib;cudart_static.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection_CUDA/cmake-build-debug-visual-studio/MinSizeRel/vector_operator.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection_CUDA/cmake-build-debug-visual-studio/MinSizeRel/vector_operator.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+    <CudaLink>
+      <AdditionalOptions>-forward-unknown-to-host-compiler -Wno-deprecated-gpu-targets </AdditionalOptions>
+      <PerformDeviceLink>true</PerformDeviceLink>
+    </CudaLink>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <ClCompile>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);CMAKE_INTDIR="RelWithDebInfo"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\Eigen;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <CudaCompile>
+      <Include>C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\Eigen;%(Include)</Include>
+      <Defines>%(Defines);_WINDOWS;NDEBUG;CMAKE_INTDIR="RelWithDebInfo"</Defines>
+      <AdditionalOptions>%(AdditionalOptions) -std=c++17 -Xcompiler="/EHsc -Zi -Ob1"</AdditionalOptions>
+      <CodeGeneration>compute_52,compute_52;compute_52,sm_52</CodeGeneration>
+      <CompileOut>$(IntDir)%(Filename).obj</CompileOut>
+      <CudaRuntime>Static</CudaRuntime>
+      <GPUDebugInfo>false</GPUDebugInfo>
+      <GenerateRelocatableDeviceCode>true</GenerateRelocatableDeviceCode>
+      <Optimization>O2</Optimization>
+      <Runtime>MD</Runtime>
+      <TargetMachinePlatform>64</TargetMachinePlatform>
+      <UseHostInclude>false</UseHostInclude>
+    </CudaCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\Eigen;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>cudadevrt.lib;cudart_static.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection_CUDA/cmake-build-debug-visual-studio/RelWithDebInfo/vector_operator.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection_CUDA/cmake-build-debug-visual-studio/RelWithDebInfo/vector_operator.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+    <CudaLink>
+      <AdditionalOptions>-forward-unknown-to-host-compiler -Wno-deprecated-gpu-targets </AdditionalOptions>
+      <PerformDeviceLink>true</PerformDeviceLink>
+    </CudaLink>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\CMakeLists.txt">
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection_CUDA/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\bin\cmake.exe -SC:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection_CUDA -BC:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection_CUDA/cmake-build-debug-visual-studio --check-stamp-file C:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection_CUDA/cmake-build-debug-visual-studio/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\CMakeCUDAInformation.cmake;C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\CMakeCommonLanguageInclude.cmake;C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\CMakeGenericSystem.cmake;C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\CMakeInitializeConfigs.cmake;C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\CMakeRCInformation.cmake;C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\CMakeSystemSpecificInformation.cmake;C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\CMakeSystemSpecificInitialize.cmake;C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\Compiler\NVIDIA-CUDA.cmake;C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\Platform\Windows-MSVC.cmake;C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\Platform\Windows-NVIDIA-CUDA.cmake;C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\Platform\Windows.cmake;C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\Platform\WindowsPaths.cmake;C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\cmake-build-debug-visual-studio\CMakeFiles\3.22.3\CMakeCUDACompiler.cmake;C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\cmake-build-debug-visual-studio\CMakeFiles\3.22.3\CMakeRCCompiler.cmake;C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\cmake-build-debug-visual-studio\CMakeFiles\3.22.3\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\cmake-build-debug-visual-studio\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection_CUDA/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\bin\cmake.exe -SC:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection_CUDA -BC:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection_CUDA/cmake-build-debug-visual-studio --check-stamp-file C:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection_CUDA/cmake-build-debug-visual-studio/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\CMakeCUDAInformation.cmake;C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\CMakeCommonLanguageInclude.cmake;C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\CMakeGenericSystem.cmake;C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\CMakeInitializeConfigs.cmake;C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\CMakeRCInformation.cmake;C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\CMakeSystemSpecificInformation.cmake;C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\CMakeSystemSpecificInitialize.cmake;C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\Compiler\NVIDIA-CUDA.cmake;C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\Platform\Windows-MSVC.cmake;C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\Platform\Windows-NVIDIA-CUDA.cmake;C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\Platform\Windows.cmake;C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\Platform\WindowsPaths.cmake;C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\cmake-build-debug-visual-studio\CMakeFiles\3.22.3\CMakeCUDACompiler.cmake;C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\cmake-build-debug-visual-studio\CMakeFiles\3.22.3\CMakeRCCompiler.cmake;C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\cmake-build-debug-visual-studio\CMakeFiles\3.22.3\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\cmake-build-debug-visual-studio\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule C:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection_CUDA/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\bin\cmake.exe -SC:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection_CUDA -BC:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection_CUDA/cmake-build-debug-visual-studio --check-stamp-file C:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection_CUDA/cmake-build-debug-visual-studio/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\CMakeCUDAInformation.cmake;C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\CMakeCommonLanguageInclude.cmake;C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\CMakeGenericSystem.cmake;C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\CMakeInitializeConfigs.cmake;C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\CMakeRCInformation.cmake;C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\CMakeSystemSpecificInformation.cmake;C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\CMakeSystemSpecificInitialize.cmake;C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\Compiler\NVIDIA-CUDA.cmake;C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\Platform\Windows-MSVC.cmake;C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\Platform\Windows-NVIDIA-CUDA.cmake;C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\Platform\Windows.cmake;C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\Platform\WindowsPaths.cmake;C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\cmake-build-debug-visual-studio\CMakeFiles\3.22.3\CMakeCUDACompiler.cmake;C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\cmake-build-debug-visual-studio\CMakeFiles\3.22.3\CMakeRCCompiler.cmake;C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\cmake-build-debug-visual-studio\CMakeFiles\3.22.3\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\cmake-build-debug-visual-studio\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule C:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection_CUDA/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\bin\cmake.exe -SC:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection_CUDA -BC:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection_CUDA/cmake-build-debug-visual-studio --check-stamp-file C:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection_CUDA/cmake-build-debug-visual-studio/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\CMakeCUDAInformation.cmake;C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\CMakeCommonLanguageInclude.cmake;C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\CMakeGenericSystem.cmake;C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\CMakeInitializeConfigs.cmake;C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\CMakeRCInformation.cmake;C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\CMakeSystemSpecificInformation.cmake;C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\CMakeSystemSpecificInitialize.cmake;C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\Compiler\NVIDIA-CUDA.cmake;C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\Platform\Windows-MSVC.cmake;C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\Platform\Windows-NVIDIA-CUDA.cmake;C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\Platform\Windows.cmake;C:\Users\Carmo\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\221.5080.224\bin\cmake\win\share\cmake-3.22\Modules\Platform\WindowsPaths.cmake;C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\cmake-build-debug-visual-studio\CMakeFiles\3.22.3\CMakeCUDACompiler.cmake;C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\cmake-build-debug-visual-studio\CMakeFiles\3.22.3\CMakeRCCompiler.cmake;C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\cmake-build-debug-visual-studio\CMakeFiles\3.22.3\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\cmake-build-debug-visual-studio\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CudaCompile Include="..\main.cu" />
+    <CudaCompile Include="..\src\vector_operator.cu" />
+    <None Include="C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\vector_operator.cuh">
+    </None>
+    <None Include="C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\mlp_model.cuh">
+    </None>
+    <CudaCompile Include="..\src\mlp_model.cu" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection_CUDA\cmake-build-debug-visual-studio\ZERO_CHECK.vcxproj">
+      <Project>{82544F52-EBDB-3322-9ED5-662E974FDD73}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\CUDA 11.6.targets" />
+  </ImportGroup>
+</Project>
