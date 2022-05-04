@@ -2,6 +2,7 @@
 #include "Eigen/Core"
 #include "inc/mlp_model.h"
 #include <chrono>
+
 using namespace Eigen;
 
 //This function multiply the input vector with the weight matrix and then add the bias
@@ -32,8 +33,7 @@ int main() {
     float X[4][2] = {{0, 0}, {0, 1}, {1, 0}, {1, 1}};
     float Y[4] = {0, 1, 1, 0};
 
-    train_mlp_model(model, reinterpret_cast<float *>(X), 4, 2, Y, 4, 0.01, 100000, 1);
-
+    train_mlp_model(model, reinterpret_cast<float *>(X), 4, 2, Y, 4, 0.01, 900000, 1);
 
 
 //    std::cout << "Time taken by function: " << diff.count() << " seconds" << std::endl;

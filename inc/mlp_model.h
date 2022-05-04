@@ -2,6 +2,9 @@
 // Created by Alexandre Carmone on 02/04/2022.
 //
 #include <Eigen>
+#include <iostream>
+#include "../Eigen/Core"
+
 #ifndef GAMEDETECTION_MLP_MODEL_H
 #define GAMEDETECTION_MLP_MODEL_H
 
@@ -36,5 +39,5 @@ DLLEXPORT void save_model_to_csv(Mlp_model *model, const char *filename);
 }
 
 void loading_bar(int i, int n);
-Eigen::VectorXf predict(Mlp_model *model, Eigen::VectorXf X, bool isClassification);
+void predict(Mlp_model *model, Eigen::VectorXf X, bool isClassification);
 #endif GAMEDETECTION_MLP_MODEL_H

@@ -65,7 +65,7 @@ void delete_mlp_model(Mlp_model *model) {
  * @param isClassification
  * @return
  */
-VectorXf predict(Mlp_model *model, VectorXf X, bool isClassification) {
+void predict(Mlp_model *model, VectorXf X, bool isClassification) {
     model->X(0) = std::move(X);
     for (int layerID = 1; layerID < model->X.size(); layerID++) {
         for (int neurID = 0; neurID < model->X(layerID).size(); neurID++) {
@@ -83,8 +83,6 @@ VectorXf predict(Mlp_model *model, VectorXf X, bool isClassification) {
             }
         }
     }
-
-    return model->X(model->X.size() - 1);
 }
 
 /**
@@ -209,8 +207,9 @@ void train_mlp_model(Mlp_model *model, float *all_samples_inputs, int32_t num_sa
     VectorXf Yk;
 
     std::chrono::duration<double> diff;
-    std::chrono::time_point start = std::chrono::high_resolution_clock::now();
-    std::chrono::time_point end = std::chrono::high_resolution_clock::now();
+//    std::chrono::time_point start = std::chrono::high_resolution_clock::now();
+//    std::chrono::time_point end = std::chrono::high_resolution_clock::now();
+    int turn = 0;
     for (int i = 0; i <= epochs; ++i) {
 
         k = rand() % inputs.rows();
@@ -218,8 +217,9 @@ void train_mlp_model(Mlp_model *model, float *all_samples_inputs, int32_t num_sa
         Yk = Y.row(k);
 //        auto t1  = std::chrono::high_resolution_clock::now();
 
-
         predict(model, Xk, isClassification);
+
+
         //On parcours les couche du model
         for (int layerID = model->W.size() - 1; layerID >= 0; --layerID) {
             // Ici on calcule de le Delta de la dernière couche
@@ -251,30 +251,22 @@ void train_mlp_model(Mlp_model *model, float *all_samples_inputs, int32_t num_sa
             }
         }
         if (i == 0) {
-            end = std::chrono::high_resolution_clock::now();
-            diff = end - start;
-            std::cout << "Time remaning estimate : " << (epochs) * diff.count()*25 << "s" << std::endl;
+//            end = std::chrono::high_resolution_clock::now();
+//            diff = end - start;
+//            std::cout << "Time remaning estimate : " << (epochs) * diff.count() << "s" << std::endl;
         }
-        end = std::chrono::high_resolution_clock::now();
-        diff = end - start;
-//        std::cout << "Time per epoch : " << diff << std::endl;
-        std::cout << "Time passed " << (std::chrono::high_resolution_clock::now() - start).count() / 1000000000 << "s";
-        std::cout << "\r";
-        std::cout << "[";
-        int pos = i * 50 / epochs;
-        for (int j = 0; j < 50; j++)
-        {
-            if (j < pos)
-                std::cout << "=";
-            else if (j == pos)
-                std::cout << ">";
-            else
-                std::cout << " ";
-        }
-        std::cout << "] " << int(i * 100.0 / epochs) << " % ";
-        std::cout.flush();
 
+        if(i * 100 / epochs != turn) {
+            turn = i * 100 / epochs;
+            if (turn%2 == 0) {
+                loading_bar(i, epochs);
+            }
+        }
     }
+    std::cout << std::endl;
+//    end = std::chrono::high_resolution_clock::now();
+//    diff = end - start;
+//    std::cout << "Time passed " << diff << "s";
 }
 
 
@@ -290,3 +282,4 @@ void save_model_to_csv(Mlp_model *model, const char *filename) {
         file.close();
     }
 }
+
