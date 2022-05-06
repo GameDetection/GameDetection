@@ -20,7 +20,6 @@ struct Mlp_model {
     int inputSize;
     Eigen::VectorX<Eigen::VectorXf> X;
     Eigen::VectorX<Eigen::VectorX<Eigen::VectorXf>> W;
-    Eigen::VectorX<Eigen::VectorX<Eigen::VectorXf>> B;
     Eigen::VectorX<Eigen::VectorX<float>> Delta;
     Eigen::MatrixXf res;
 };
@@ -35,9 +34,11 @@ DLLEXPORT void train_mlp_model(Mlp_model *model, float *all_samples_inputs, int3
 DLLEXPORT void delete_mlp_model(Mlp_model *model);
 
 DLLEXPORT void save_model_to_csv(Mlp_model *model, const char *filename);
-
+DLLEXPORT Mlp_model *load_model_from_csv(const char *filename);
 }
 
 void loading_bar(int i, int n);
 void predict(Mlp_model *model, Eigen::VectorXf X, bool isClassification);
+Eigen::VectorXd split(const std::string &s, char delim);
+std::vector<std::string> split_string(const std::string &s, char delim);
 #endif GAMEDETECTION_MLP_MODEL_H

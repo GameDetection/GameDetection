@@ -3,8 +3,10 @@
 #include "inc/mlp_model.h"
 #include <chrono>
 
-using namespace Eigen;
 
+
+using namespace Eigen;
+using namespace std;
 //This function multiply the input vector with the weight matrix and then add the bias
 MatrixXd multiply_and_add(MatrixXd input, MatrixXd weight, MatrixXd bias)
 {
@@ -21,7 +23,7 @@ int main() {
 
 
     // Initialize the model
-    int nlp[3] = {2, 2, 1};
+    int nlp[3] = {2,3,  1};
     Mlp_model *model = create_mlp_model(nlp, 3);
 
     // Initialize the data
@@ -33,7 +35,8 @@ int main() {
     float X[4][2] = {{0, 0}, {0, 1}, {1, 0}, {1, 1}};
     float Y[4] = {0, 1, 1, 0};
 
-    train_mlp_model(model, reinterpret_cast<float *>(X), 4, 2, Y, 4, 0.01, 900000, 1);
+
+    train_mlp_model(model, reinterpret_cast<float *>(X), 4, 2, Y, 4, 0.01, 1000000, 1);
 
 
 //    std::cout << "Time taken by function: " << diff.count() << " seconds" << std::endl;
@@ -41,8 +44,12 @@ int main() {
 //    save_model_to_csv(model, "C:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection/model.csv");
 
 //    model = load_model("C:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection/model.txt");
+    save_model_to_csv(model, "C:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection/GD_cpp_lib/model.csv");
+    model = load_model_from_csv("C:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection/GD_cpp_lib/model.csv");
+    save_model_to_csv(model, "C:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection/GD_cpp_lib/model.csv");
 
     return 0;
 }
+
 
 

@@ -2,6 +2,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import ctypes
 import itertools
+
+
 # %%
 class MLP_model():
 
@@ -101,25 +103,14 @@ plt.scatter(np.array(list(map(lambda elt : elt[1], filter(lambda c: Y[c[0]] == 1
 plt.scatter(np.array(list(map(lambda elt : elt[1], filter(lambda c: Y[c[0]] == -1, enumerate(X)))))[:,0], np.array(list(map(lambda elt : elt[1], filter(lambda c: Y[c[0]] == -1, enumerate(X)))))[:,1], color='red')
 plt.show()
 plt.clf()
-
-# %%
-# Linear Model : OK
-#     MLP (2, 1)   : OK
-X = np.concatenate(
-    [np.random.random((50, 2)) * 0.9 + np.array([1, 1]), np.random.random((50, 2)) * 0.9 + np.array([2, 2])])
-Y = np.concatenate([np.ones((50, 1)), np.ones((50, 1)) * -1.0])
-# %%
-plt.scatter(X[0:50, 0], X[0:50, 1], color='blue')
-plt.scatter(X[50:100, 0], X[50:100, 1], color='red')
-plt.show()
-plt.clf()
 # %%
 My_mlp = MLP_model([2, 5, 2, 1])
 # %%
 print(My_mlp.test_model(X, Y))
 # %%
-My_mlp.display_limit(100, 100)
+My_mlp.display_limit(100, 10)
 # %%
-My_mlp.train(X.tolist(), Y.tolist(), 1000000, 0.01, 1)
+My_mlp.train(X.tolist(), Y.tolist(), 10000000, 0.01, 1)
 
-
+My_mlp.display_limit(100, 100)
+print(My_mlp.test_model(X, Y))

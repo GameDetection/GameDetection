@@ -2,35 +2,14 @@
 // Created by Alexandre Carmone on 02/04/2022.
 //
 #include "../mlp_model.cuh"
-#include "../vector_operator.cuh"
 #include <iostream>
 #include <utility>
 #include <cstdint>
 #include <fstream>
 #include <chrono>
+#include <Eigen>
 
 using namespace Eigen;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /**
  * This function create a mlp model
  * @param tab
@@ -47,6 +26,7 @@ Mlp_model *create_mlp_model(int tab[], int len) {
         model->l(i - 1) = tab[i];
     }
     model->X.resize(len);
+    model->B.resize(len);
     model->W.resize(len);
     model->Delta.resize(len);
 
@@ -57,26 +37,18 @@ Mlp_model *create_mlp_model(int tab[], int len) {
         model->X(i).resize(tab[i]);
         model->X(i).setOnes();
         model->W(i).resize(tab[i]);
+        model->B(i).resize(tab[i]);
         for (int j = 0; j < tab[i]; ++j) {
             if (i > 0) {
                 model->W(i)(j).resize(tab[i - 1]);
                 model->W(i)(j).setRandom();
+
+                model->B(i)(j).resize(1);
+                model->B(i)(j).setOnes();
             }
         }
     }
-
-    //export model in gpu
-    Mlp_model *pModel = gpu_init(model);
-    return pModel;
-}
-//this function export the model in gpu memory
-Mlp_model* gpu_init(Mlp_model *pModel) {
-    //initialize model in gpu
-    std::cout << "Initializing model in gpu" << std::endl;
-    Mlp_model* model_ptr;
-    cudaMalloc((void **) &model_ptr, sizeof(Mlp_model));
-    cudaMemcpy(model_ptr, pModel, sizeof(Mlp_model), cudaMemcpyHostToDevice);
-    return model_ptr;
+    return model;
 }
 
 /**
@@ -86,7 +58,6 @@ Mlp_model* gpu_init(Mlp_model *pModel) {
 void delete_mlp_model(Mlp_model *model) {
     delete model;
 }
-
 
 /**
  * This function predict the result of the neural network
@@ -101,15 +72,15 @@ void predict(Mlp_model *model, VectorXf X, bool isClassification) {
         for (int neurID = 0; neurID < model->X(layerID).size(); neurID++) {
 
             if (model->X.size() - 1 == layerID && !isClassification) {
-
-                vector_multiply<<<100,100>>>(model->X(layerID - 1), model->W(layerID)(neurID), model->X(layerID - 1));
-
-                model->X(layerID)(neurID) = model->X(layerID - 1).sum() + 1;
-
+                model->X(layerID)(neurID) = ((model->X(layerID - 1).transpose() *
+                                              model->W(layerID)(neurID) +
+                                              model->B(layerID)(neurID))
+                        .sum());
             } else {
-                vector_multiply<<<100,100>>>(model->X(layerID - 1), model->W(layerID)(neurID), model->X(layerID - 1));
-
-                model->X(layerID)(neurID) = tanh(model->X(layerID - 1).sum() + 1);
+                model->X(layerID)(neurID) = tanh((model->X(layerID - 1).transpose() *
+                                                  model->W(layerID)(neurID) +
+                                                  model->B(layerID)(neurID))
+                                                         .sum());
             }
         }
     }
@@ -158,28 +129,20 @@ VectorXf getVectorXfFromLineVector(float table[], int size) {
  */
 float *predict_for_dll(Mlp_model *model, float *sample_inputs, int32_t num_features, bool isClassification) {
 
-    auto a = getVectorXfFromLineVector(sample_inputs, num_features);
-//    VectorXf *X = new VectorXf;
-    VectorXf *pX;
-
-    cudaMalloc(&pX, sizeof (VectorXf));
-    VectorXf b = model->X(0) = a;
-    cudaMemcpy(pX, &a, sizeof(VectorXf), cudaMemcpyHostToDevice);
-    model->X(0) = *pX;
-
+    model->X(0) = getVectorXfFromLineVector(sample_inputs, num_features);
     for (int layerID = 1; layerID < model->X.size(); layerID++) {
         for (int neurID = 0; neurID < model->X(layerID).size(); neurID++) {
 
             if (model->X.size() - 1 == layerID && !isClassification) {
-
-                vector_multiply<<<100,100>>>(model->X(layerID - 1), model->W(layerID)(neurID), model->X(layerID - 1));
-
-                model->X(layerID)(neurID) = model->X(layerID - 1).sum() + 1;
-
+                model->X(layerID)(neurID) = ((model->X(layerID - 1).transpose() *
+                                              model->W(layerID)(neurID) +
+                                              model->B(layerID)(neurID))
+                        .sum());
             } else {
-                vector_multiply<<<100,100 >>>(model->X(layerID - 1), model->W(layerID)(neurID), model->X(layerID - 1));
-
-                model->X(layerID)(neurID) = tanh(model->X(layerID - 1).sum() + 1);
+                model->X(layerID)(neurID) = tanh((model->X(layerID - 1).transpose() *
+                                                  model->W(layerID)(neurID) +
+                                                  model->B(layerID)(neurID))
+                                                         .sum());
             }
         }
     }
@@ -302,5 +265,7 @@ void train_mlp_model(Mlp_model *model, float *all_samples_inputs, int32_t num_sa
         }
     }
     std::cout << std::endl;
+//    end = std::chrono::high_resolution_clock::now();
+//    diff = end - start;
+//    std::cout << "Time passed " << diff << "s";
 }
-
