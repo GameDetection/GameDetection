@@ -28,6 +28,7 @@ Mlp_model *create_mlp_model(int tab[], int len) {
     model->X.resize(len);
     model->W.resize(len);
     model->Delta.resize(len);
+    model->Sum.resize(len);
     for (int i = 0; i < len; ++i) {
         model->Delta(i).resize(tab[i]);
         model->Delta(i).setZero();
@@ -35,6 +36,8 @@ Mlp_model *create_mlp_model(int tab[], int len) {
         model->X(i).resize(tab[i]);
         model->X(i).setOnes();
         model->W(i).resize(tab[i]);
+        model->Sum(i).resize(tab[i]);
+        model->Sum(i).setZero();
         for (int j = 0; j < tab[i]; ++j) {
             if (i > 0) {
                 model->W(i)(j).resize(tab[i - 1]);
@@ -156,7 +159,7 @@ void loading_bar(int i, int n, double time) {
         else
             std::cout << " ";
     }
-    std::cout << "] " << int(i * 100.0 / n) << " % " << time << "s remaining      ";
+    std::cout << setprecision(3) << "] " << int(i * 100.0 / n) << " % " << time << "s remaining      ";
     std::cout.flush();
 }
 
@@ -195,10 +198,7 @@ void train_mlp_model(Mlp_model *model, float *all_samples_inputs, int32_t num_sa
         k = rand() % inputs.rows();
         Xk = inputs.row(k);
         Yk = Y.row(k);
-
         predict(model, Xk, isClassification);
-
-
         //On parcours les couche du model
         for (int layerID = model->W.size() - 1; layerID >= 0; --layerID) {
             // Ici on calcule de le Delta de la dernière couche
@@ -213,14 +213,13 @@ void train_mlp_model(Mlp_model *model, float *all_samples_inputs, int32_t num_sa
             }
                 // pour les autres couches
             else {
-                VectorXf res(model->W(layerID).size());
-                res.setZero();
+                model->Sum(layerID).setZero();
                 // pour chaque neuronne dans la couche
                 for (int neurID = 0; neurID < model->Delta(layerID + 1).size(); ++neurID) {
-                    res += model->W(layerID + 1)(neurID) * model->Delta(layerID + 1)(neurID);
+                    model->Sum(layerID) += model->W(layerID + 1)(neurID) * model->Delta(layerID + 1)(neurID);
                 }
                 //on calcule le delta de la couche
-                model->Delta(layerID) = (1 - model->X(layerID).cwiseProduct(model->X(layerID)).array()) * res.array();
+                model->Delta(layerID) = (1 - model->X(layerID).cwiseProduct(model->X(layerID)).array()) * model->Sum(layerID).array();
             }
             if (layerID > 0) {
                 //On fait la mise à jour des poids
@@ -309,7 +308,7 @@ std::vector<std::string> split_string(const std::string &s, char delim) {
  * @return
  */
 Mlp_model *load_model_from_csv(const char *filename) {
-    Mlp_model* model = new Mlp_model;
+    auto* model = new Mlp_model;
     std::ifstream file(filename);
     if (file.is_open()) {
         std::string line;
@@ -321,6 +320,7 @@ Mlp_model *load_model_from_csv(const char *filename) {
         model->X.resize(size);
         model->W.resize(size);
         model->Delta.resize(size);
+        model->Sum.resize(size);
         for (int i = 0; i < size; ++i) {
             getline(file, line);
             model->Delta(i).resize(model->l(i));
@@ -329,7 +329,8 @@ Mlp_model *load_model_from_csv(const char *filename) {
             model->X(i).resize(model->l(i));
             model->X(i).setOnes();
             model->W(i).resize(model->l(i));
-
+            model->Sum(i).resize(model->l(i));
+            model->Sum(i).setZero();
             auto neur = split_string(line, ';');
 
             if (i > 0) {

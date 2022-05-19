@@ -7,13 +7,6 @@
 
 using namespace Eigen;
 using namespace std;
-//This function multiply the input vector with the weight matrix and then add the bias
-MatrixXd multiply_and_add(MatrixXd input, MatrixXd weight, MatrixXd bias)
-{
-    MatrixXd result = input * weight;
-    result = result + bias;
-    return result;
-}
 
 int main() {
 

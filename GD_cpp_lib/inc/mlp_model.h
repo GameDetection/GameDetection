@@ -20,7 +20,8 @@ struct Mlp_model {
     int inputSize;
     Eigen::VectorX<Eigen::VectorXf> X;
     Eigen::VectorX<Eigen::VectorX<Eigen::VectorXf>> W;
-    Eigen::VectorX<Eigen::VectorX<float>> Delta;
+    Eigen::VectorX<Eigen::VectorXf> Delta;
+    Eigen::VectorX<Eigen::VectorXf> Sum;
     Eigen::MatrixXf res;
 };
 

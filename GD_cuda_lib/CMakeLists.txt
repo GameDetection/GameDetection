@@ -5,7 +5,7 @@ set(CMAKE_CUDA_STANDARD 23)
 
 include_directories("${PROJECT_SOURCE_DIR}\\Eigen")
 
-add_executable(cuda_mlp_model main.cu mlp_model.cuh src/mlp_model.cu)
+add_executable(cuda_mlp_model main.cu)
 #add_library(vector_operator SHARED main.cu src/vector_operator.cu vector_operator.cuh mlp_model.cuh src/mlp_model.cu)
 
 set_target_properties(cuda_mlp_model PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
