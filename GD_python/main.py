@@ -105,13 +105,13 @@ plt.scatter(X[50:100,0], X[50:100,1], color='red')
 plt.show()
 plt.clf()
 # %%
-My_mlp = MLP_model([2, 3, 4, 2, 1])
+My_mlp = MLP_model([2, 1000, 1000, 1])
 # %%
 print(My_mlp.test_model(X, Y))
 # %%
 My_mlp.display_limit(100, 100)
 # %%
-My_mlp.train(X.tolist(), Y.tolist(), 1000000, 0.01, 1)
+My_mlp.train(X.tolist(), Y.tolist(), 10000, 0.01, 1)
 
 My_mlp.display_limit(100, 100)
 print(My_mlp.test_model(X, Y))

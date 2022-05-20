@@ -1,160 +1,313 @@
-//
-// Created by Alexandre Carmone on 02/04/2022.
-//
-#include "../mlp_model.cuh"
+#include <random>
 #include <iostream>
-#include <utility>
-#include <cstdint>
-#include <fstream>
+#include "../mlp_model.cuh"
 #include <chrono>
 
-using namespace Eigen;
 using namespace std;
-/**
- * This function create a mlp model
- * @param tab
- * @param len
- * @return
- */
-Mlp_model *create_mlp_model(int tab[], int len) {
-    // Create a model with the given parameters
-    std::cout << "Creating a model with " << len << " layers" << std::endl;
-    auto *model = new Mlp_model();
-    model->inputSize = tab[0];
-    model->l.resize(len);
-    for (int i = 0; i < len; ++i) {
-        model->l(i) = tab[i];
-    }
-    model->X.resize(len);
-    model->W.resize(len);
-    model->Delta.resize(len);
-    model->Sum.resize(len);
-    for (int i = 0; i < len; ++i) {
-        model->Delta(i).resize(tab[i]);
-        model->Delta(i).setZero();
 
-        model->X(i).resize(tab[i]);
-        model->X(i).setOnes();
-        model->W(i).resize(tab[i]);
-        model->Sum(i).resize(tab[i]);
-        model->Sum(i).setZero();
-        for (int j = 0; j < tab[i]; ++j) {
-            if (i > 0) {
-                model->W(i)(j).resize(tab[i - 1]);
-                model->W(i)(j).setRandom();
+
+Mlp_model_cuda *create_mlp_model(int* tab,int len) {
+
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_real_distribution<> dist(-0.99, 0.99);
+
+    auto *model = new Mlp_model_cuda;
+    model->l = new int[len];
+    model->lLenght = len;
+
+    model->WLayer = new Wlayer[len];
+    model->XLayer = new Xlayer[len];
+    model->WResLayer = new Wlayer[len];
+    model->DeltaLayer = new DeltaLayer[len];
+    model->Sumlayer = new Sumlayer[len];
+
+    model->d_WLayer = new gpu_Wlayer[len];
+    model->d_XLayer = new gpu_Xlayer[len];
+    model->d_WResLayer = new gpu_Wlayer[len];
+    model->d_DeltaLayer = new gpu_DeltaLayer[len];
+    model->d_Sumlayer = new gpu_Sumlayer[len];
+
+    for (int layerID = 0; layerID < len; layerID++) {
+        int neurSize, nbNeur = tab[layerID];
+
+        model->l[layerID] = tab[layerID];
+
+        model->XLayer[layerID].length = nbNeur;
+        model->XLayer[layerID].vector = new float[nbNeur];
+
+        model->d_XLayer[layerID].length = nbNeur;
+        cudaMalloc(&model->d_XLayer[layerID].vector, sizeof(float) * nbNeur);
+
+        model->DeltaLayer[layerID].length = nbNeur;
+        model->DeltaLayer[layerID].vector = new float[nbNeur];
+
+        model->d_DeltaLayer[layerID].length = nbNeur;
+        cudaMalloc(&model->d_DeltaLayer[layerID].vector, sizeof (float) * nbNeur);
+
+        model->Sumlayer[layerID].length = nbNeur;
+        model->Sumlayer[layerID].vector = new float[nbNeur];
+
+        model->d_Sumlayer[layerID].length = nbNeur;
+        cudaMalloc(&model->d_Sumlayer[layerID].vector, sizeof (float) * nbNeur);
+
+        for (int elementID = 0; elementID < tab[layerID]; elementID++) {
+            model->DeltaLayer[layerID].vector[elementID] = 0;
+            model->XLayer[layerID].vector[elementID] = 0;
+            model->Sumlayer[layerID].vector[elementID] = 0;
+        }
+
+        cudaMemcpy(model->d_XLayer[layerID].vector, model->XLayer[layerID].vector, sizeof(float) * nbNeur, cudaMemcpyHostToDevice);
+        cudaMemcpy(model->d_Sumlayer[layerID].vector, model->Sumlayer[layerID].vector, sizeof(float) * nbNeur, cudaMemcpyHostToDevice);
+
+        if (layerID > 0) {
+            neurSize = tab[layerID - 1];
+
+            model->WLayer[layerID].nbNeur = nbNeur;
+            model->WLayer[layerID].neurSize = neurSize;
+            model->WLayer[layerID].vector = new float[tab[layerID] * neurSize];
+
+            model->d_WLayer[layerID].nbNeur = nbNeur;
+            model->d_WLayer[layerID].neurSize = neurSize;
+            cudaMalloc(&model->d_WLayer[layerID].vector, sizeof(float) * neurSize * nbNeur);
+
+            model->WResLayer[layerID].nbNeur = nbNeur;
+            model->WResLayer[layerID].neurSize = neurSize;
+            model->WResLayer[layerID].vector = new float[nbNeur * neurSize];
+
+            model->d_WResLayer[layerID].nbNeur = nbNeur;
+            model->d_WResLayer[layerID].neurSize = neurSize;
+            cudaMalloc(&model->d_WResLayer[layerID].vector, sizeof(float) * neurSize * nbNeur);
+
+            for (int elementID = 0; elementID < nbNeur * neurSize; elementID++) {
+                model->WLayer[layerID].vector[elementID] = /*dist(gen)*/3;
+                model->WResLayer[layerID].vector[elementID] = 0;
             }
+            cudaMemcpy(model->d_WResLayer[layerID].vector, model->WResLayer[layerID].vector, sizeof(float) * neurSize * nbNeur, cudaMemcpyHostToDevice);
+            cudaMemcpy(model->d_WLayer[layerID].vector, model->WLayer[layerID].vector, sizeof(float) * nbNeur * neurSize, cudaMemcpyHostToDevice);
         }
     }
+    cout << "model ready" << endl;
     return model;
 }
-
-/**
- * This function delete a mlp model
- * @param model
- */
-void delete_mlp_model(Mlp_model *model) {
-    delete model;
+__global__ void calculateLayer(float *W, float *X, float* Wres, int neurSize, int nbNeur) {
+    int i = blockDim.x * blockIdx.x + threadIdx.x;
+    if (i < neurSize * nbNeur) {
+        Wres[i] = W[i] * X[i % neurSize];
+    }
 }
 
-/**
- * This function predict the result of the neural network
- * @param model
- * @param X
- * @param isClassification
- * @return
- */
-void predict(Mlp_model *model, VectorXf X, bool isClassification) {
-    model->X(0) = std::move(X);
-    for (int layerID = 1; layerID < model->X.size(); layerID++) {
-        for (int neurID = 0; neurID < model->X(layerID).size(); neurID++) {
 
-            if (model->X.size() - 1 == layerID && !isClassification) {
-                model->X(layerID)(neurID) = (model->X(layerID - 1).transpose() * model->W(layerID)(neurID)) + 1;
-            } else {
-                model->X(layerID)(neurID) = tanh((model->X(layerID - 1).transpose() * model->W(layerID)(neurID)) + 1 );
-            }
+__global__ void sumTanhLayer(float *X, float *Wres, int neurSize, int nbNeur) {
+    int i = blockDim.x * blockIdx.x + threadIdx.x;
+    if (i < nbNeur) {
+        for (int j = 0; j < neurSize + (i * neurSize) ; j++) {
+            X[i] += Wres[j];
+        }
+        X[i] = tanh(X[i] + 1);
+    }
+}
+
+__global__ void sumLayer(float *X, float *Wres, int neurSize, int nbNeur) {
+    int i = blockDim.x * blockIdx.x + threadIdx.x;
+    if (i < nbNeur) {
+        for (int j = 0; j < neurSize + (i * neurSize) ; j++) {
+            X[i] += Wres[j];
+        }
+        X[i] += 1;
+    }
+}
+
+__global__ void calculateDeltaLayerForClassification(float* Delta, int nbNeur, float* X, float* Y) {
+    int i = blockDim.x * blockIdx.x + threadIdx.x;
+    if (i < nbNeur) {
+        Delta[i] = (1 - X[i] * X[i]) * (X[i] - Y[i]);
+    }
+}
+
+__global__ void calculateDeltaLayer(float* Delta, int nbNeur, float* X, float* Y) {
+    int i = blockDim.x * blockIdx.x + threadIdx.x;
+    if (i < nbNeur) {
+        Delta[i] = X[i] - Y[i];
+    }
+}
+__global__ void calculateWeightAndDeltaForDelta(float* Delta, float* resLayer, float* W, int nbNeur, int neurSize) {
+    int i = blockDim.x * blockIdx.x + threadIdx.x;
+    if (i < nbNeur * neurSize) {
+        resLayer[i] = Delta[i % nbNeur] * W[i];
+    }
+}
+__global__ void calculateSumForDelta(float*  resLayer, int nbNeur, int neurSize, float* Delta) {
+    int i = blockDim.x * blockIdx.x + threadIdx.x;
+    if (i < nbNeur) {
+        Delta[i] = 0;
+        for (int j = 0; j < neurSize + (i * neurSize) ; j++) {
+            Delta[i] += resLayer[j];
+        }
+    }
+}
+__global__ void calculateDelta(float* Delta, float* X, int nbNeur) {
+    int i = blockDim.x * blockIdx.x + threadIdx.x;
+    if (i < nbNeur) {
+        Delta[i] = (1 - X[i] * X[i]) * Delta[i];
+    }
+}
+__global__ void updateWeights(float* W, float* Delta, float* X, int nbNeur, int neurSize, float learningRate) {
+    int i = blockDim.x * blockIdx.x + threadIdx.x;
+    if (i < nbNeur * neurSize) {
+        W[i] -= Delta[i % nbNeur] * X[i] * learningRate;
+    }
+}
+
+void hostSumLayer(float *X, float* Wres, int neurSize, int nbNeur) {
+    for (int i = 0; i < nbNeur; i++) {
+        X[i] = 0;
+        for (int j = 0; j < neurSize + (i * neurSize) ; j++) {
+            X[i] += Wres[j];
+        }
+        X[i] += 1;
+    }
+}
+void hostSumTanLayer(float *X, float* Wres, int neurSize, int nbNeur) {
+    for (int i = 0; i < nbNeur; i++) {
+        X[i] = 0;
+        for (int j = 0; j < neurSize + (i * neurSize) ; j++) {
+            X[i] += Wres[j];
+        }
+        X[i] = tanh(X[i] + 1);
+    }
+}
+
+void hostCalculateLayer(float *W, float *X, float* Wres, int neurSize, int nbNeur) {
+    for (int i = 0; i < neurSize * nbNeur; i++) {
+        Wres[i] = W[i] * X[i % neurSize];
+    }
+}
+void predict(Mlp_model_cuda *model, Xlayer X, bool isClassification) {
+    std::chrono::duration<float> time;
+    std::chrono::time_point start = std::chrono::high_resolution_clock::now();
+    std::chrono::time_point end = std::chrono::high_resolution_clock::now();
+    model->XLayer[0] = X;
+    cudaMemcpy(model->d_XLayer[0].vector, model->XLayer[0].vector, sizeof(float) * model->XLayer[0].length, cudaMemcpyHostToDevice);
+    int neurSize = 0;
+    int nbNeur = 0;
+    start = std::chrono::high_resolution_clock::now();
+    for (int layerID = 1; layerID < model->lLenght; layerID++) {
+        nbNeur = model->WLayer[layerID].nbNeur;
+        neurSize = model->WLayer[layerID].neurSize;
+
+        hostCalculateLayer
+                (model->WLayer[layerID].vector,
+                 model->XLayer[layerID - 1].vector,
+                 model->WResLayer[layerID].vector,
+                 model->WLayer[layerID].neurSize,
+                 model->WLayer[layerID].nbNeur
+                );
+
+//        calculateLayer<<<1,  neurSize * nbNeur>>>
+//                (
+//                        model->d_WLayer[layerID].vector,
+//                        model->d_XLayer[layerID - 1].vector,
+//                        model->d_WResLayer[layerID].vector,
+//                        model->d_WLayer[layerID].neurSize,
+//                        model->d_WLayer[layerID].nbNeur
+//                );
+        if (layerID == (model->lLenght - 1) && !isClassification ) {
+            hostSumLayer(
+                    model->XLayer[layerID].vector,
+                    model->WResLayer[layerID].vector,
+                    neurSize,
+                    nbNeur
+            );
+//            sumLayer<<<1,nbNeur>>>
+//                    (
+//                            model->d_XLayer[layerID].vector,
+//                            model->d_WResLayer[layerID].vector,
+//                            neurSize,
+//                            nbNeur
+//                    );
+        }
+        else {
+            hostSumTanLayer(
+                    model->XLayer[layerID].vector,
+                    model->WResLayer[layerID].vector,
+                    neurSize,
+                    nbNeur
+            );
+//            sumTanhLayer<<<1, nbNeur>>>
+//                    (
+//                            model->d_XLayer[layerID].vector,
+//                            model->d_WResLayer[layerID].vector,
+//                            neurSize,
+//                            nbNeur
+//                    );
+        }
+    }
+    end = std::chrono::high_resolution_clock::now();
+    time = end - start;
+    cout << "Time: " << time.count() << endl;
+//    cudaMemcpy(model->XLayer[model->lLenght - 1].vector, model->d_XLayer[model->lLenght - 1].vector, sizeof(float) * model->d_XLayer[model->lLenght - 1].length, cudaMemcpyDeviceToHost);
+
+}
+void cuda_predict(Mlp_model_cuda *model, float* X, int num_features, bool isClassification) {
+
+    model->d_XLayer[0].vector = X;
+    model->d_XLayer[0].length = num_features;
+
+    int neurSize = 0;
+    int nbNeur = 0;
+
+
+    for (int layerID = 1; layerID < model->lLenght; layerID++) {
+        nbNeur = model->WLayer[layerID].nbNeur;
+        neurSize = model->WLayer[layerID].neurSize;
+        calculateLayer<<<nbNeur, neurSize>>>
+                (
+                        model->d_WLayer[layerID].vector,
+                        model->d_XLayer[layerID - 1].vector,
+                        model->d_WResLayer[layerID].vector,
+                        model->d_WLayer[layerID].neurSize,
+                        model->d_WLayer[layerID].nbNeur
+                );
+        if (layerID == (model->lLenght - 1) && !isClassification ) {
+            sumLayer<<<1,nbNeur>>>
+                    (
+                            model->d_XLayer[layerID].vector,
+                            model->d_WResLayer[layerID].vector,
+                            neurSize,
+                            nbNeur
+                    );
+        }
+        else {
+            sumTanhLayer<<<1, nbNeur>>>
+                    (
+                            model->d_XLayer[layerID].vector,
+                            model->d_WResLayer[layerID].vector,
+                            neurSize,
+                            nbNeur
+                    );
         }
     }
 }
 
-void cuda_predict(Mlp_model *model, float* X, int len, bool isClassification) {
-
-}
-/**
- * This function convert a line matrix to a Matrix
- * @param table
- * @param rows
- * @param cols
- * @return
- */
-MatrixXf getMatrixXfFromLineMatrix(float table[], int rows, int cols) {
-    MatrixXf res;
-    res.resize(rows, cols);
-    for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < cols; j++) {
-            res(i, j) = table[i * cols + j];
+float** getMatrixXfFromLineMatrix (float* lineMatrix, int nbRows, int nbCols) {
+    float** matrix = new float*[nbRows];
+    for (int i = 0; i < nbRows; i++) {
+        float* vector = new float[nbCols];
+        for (int j = 0; j < nbCols; j++) {
+            vector[j] = lineMatrix[i * nbCols + j];
         }
+        matrix[i] = vector;
     }
-    return res;
+    return matrix;
 }
-
-/**
- * This function convert a line matrix to a Matrix
- * @param table
- * @param rows
- * @param cols
- * @return
- */
-VectorXf getVectorXfFromLineVector(float table[], int size) {
-    VectorXf res;
-    res.resize(size);
-    res = VectorXf::Map(table, size);
-    return res;
-}
-
-
-/**
- * This function predict the result of the neural network for dll implementation
- * @param model
- * @param sample_inputs
- * @param num_features
- * @param isClassification
- * @return
- */
-float *predict_for_dll(Mlp_model *model, float *sample_inputs, int32_t num_features, bool isClassification) {
-
-    model->X(0) = getVectorXfFromLineVector(sample_inputs, num_features);
-    for (int layerID = 1; layerID < model->X.size(); layerID++) {
-        for (int neurID = 0; neurID < model->X(layerID).size(); neurID++) {
-
-            if (model->X.size() - 1 == layerID && !isClassification) {
-                model->X(layerID)(neurID) = (model->X(layerID - 1).transpose() * model->W(layerID)(neurID)) + 1;
-            } else {
-                model->X(layerID)(neurID) = tanh(
-                        (model->X(layerID - 1).transpose() * model->W(layerID)(neurID)) + 1);
-            }
-        }
-    }
-    float *Z = new float[model->X(model->X.size() - 1).size()];
-    //convert the result to a line matrix
-    for (int i = 0; i < model->X(model->X.size() - 1).size(); i++) {
-        Z[i] = model->X(model->X.size() - 1)(i);
-    }
-
-    return Z;
-}
-
-/**
- * This function display a loading bar
- * @param i
- * @param n
- */
 void loading_bar(int i, int n, double time) {
 
     std::cout << "\r";
     std::cout << "[";
     int pos = i * 50 / n;
-    for (int j = 0; j < 50; j++) {
+    for (int j = 0; j < 50; j++)
+    {
         if (j < pos)
             std::cout << "=";
         else if (j == pos)
@@ -166,193 +319,94 @@ void loading_bar(int i, int n, double time) {
     std::cout.flush();
 }
 
+void cuda_train(Mlp_model_cuda *model, float* all_samples_inputs, int num_samples, int num_features, float* all_samples_expected_outputs, int num_samples_outputs, int num_features_outputs, int epochs, float learningRate, bool isClassification) {
+    auto X = getMatrixXfFromLineMatrix(all_samples_inputs, num_samples, num_features);
+    auto Y = getMatrixXfFromLineMatrix(all_samples_expected_outputs, num_samples_outputs, num_features_outputs);
+    cout << "Data convert to matrix" << endl;
+    auto** d_inputs = new float*[num_samples];
+    auto** d_outputs = new float*[num_samples];
 
-/**
- * This function train_mlp_model the neural network for dll implementation
- * @param model
- * @param all_samples_inputs
- * @param num_sample
- * @param num_features
- * @param all_samples_expected_outputs
- * @param num_outputs
- * @param learningRate
- * @param epochs
- * @param isClassification
- */
-void train_mlp_model(Mlp_model *model, float *all_samples_inputs, int32_t num_sample, int32_t num_features,
-                     float *all_samples_expected_outputs, int32_t num_outputs, float learningRate, int32_t epochs,
-                     int32_t isClassification) {
-
-    MatrixXf inputs = getMatrixXfFromLineMatrix(all_samples_inputs, num_sample, num_features);
-    VectorXf Y = getVectorXfFromLineVector(all_samples_expected_outputs, num_outputs);
-
+    float* Xk;
+    float* Yk;
     int k = 0;
-    VectorXf Xk;
-    VectorXf Yk;
+    for (int sample = 0; sample < num_samples; sample++) {
+        cudaMalloc(&(d_inputs[sample]), sizeof (float) * num_features);
+        cudaMemcpy(d_inputs[sample], X[sample], sizeof (float) * num_features, cudaMemcpyHostToDevice);
 
-    std::chrono::duration<double> diff;
+        cudaMalloc(&(d_outputs[sample]), sizeof (float) * num_features_outputs);
+        cudaMemcpy(d_outputs[sample], Y[sample], sizeof (float) * num_features_outputs, cudaMemcpyHostToDevice);
+    }
+    cout << "Data transfer in G-RAM" << endl;
+
     double total = 0;
     std::chrono::duration<float> tt;
     std::chrono::time_point start = std::chrono::high_resolution_clock::now();
     std::chrono::time_point end = std::chrono::high_resolution_clock::now();
     int turn = 0;
 
+    cout << "Training in coming" << endl;
+    for (int epoch = 0; epoch < epochs; epoch++) {
+        k = rand() % num_samples;
+        Xk = d_inputs[k];
+        Yk = d_outputs[k];
 
-    for (int i = 0; i <= epochs; ++i) {
-
-        k = rand() % inputs.rows();
-        Xk = inputs.row(k);
-        Yk = Y.row(k);
-
-        predict(model, Xk, isClassification);
+        cuda_predict(model, Xk, num_features, isClassification);
 
 
-        //On parcours les couche du model
-        for (int layerID = model->W.size() - 1; layerID >= 0; --layerID) {
-            // Ici on calcule de le Delta de la dernière couche
-            if (layerID == model->W.size() - 1) {
+        for (int layerID = model->lLenght - 1; layerID >= 0; --layerID) {
+            if (layerID == model->lLenght - 1) {
                 if (isClassification) {
-                    //on fait le calcul de la dernière couche en fonction de la classification
-                    model->Delta(layerID) = (1 - model->X(layerID).cwiseProduct(model->X(layerID)).array()) *
-                                            (model->X(layerID) - Yk).array();
-                } else {
-                    model->Delta(layerID) = model->X(layerID) - Yk;
+                    calculateDeltaLayerForClassification<<<1,model->d_XLayer->length>>>( model->d_DeltaLayer[layerID].vector, model->d_XLayer->length, model->d_XLayer[layerID].vector, Yk);
+                }
+                else {
+                    calculateDeltaLayer<<<1,model->d_XLayer->length>>>( model->d_DeltaLayer[layerID].vector, model->d_XLayer->length, model->d_XLayer[layerID].vector, Yk);
                 }
             }
-                // pour les autres couches
             else {
-                model->Sum(layerID).setZero();
-                // pour chaque neuronne dans la couche
-                for (int neurID = 0; neurID < model->Delta(layerID + 1).size(); ++neurID) {
-                    model->Sum(layerID) += model->W(layerID + 1)(neurID) * model->Delta(layerID + 1)(neurID);
-                }
-                //on calcule le delta de la couche
-                model->Delta(layerID) = (1 - model->X(layerID).cwiseProduct(model->X(layerID)).array()) *
-                                        model->Sum(layerID).array();
+                calculateWeightAndDeltaForDelta<<<model->d_WLayer[layerID + 1].nbNeur, model->d_WLayer[layerID + 1].neurSize>>>
+                        (
+                                model->d_DeltaLayer[layerID + 1].vector,
+                                model->d_WResLayer[layerID].vector + 1,
+                                model->d_WLayer[layerID + 1].vector,
+                                model->d_WLayer[layerID + 1].nbNeur,
+                                model->d_WLayer[layerID + 1].neurSize
+                        );
+                calculateSumForDelta<<<1,model->d_WLayer[layerID + 1].nbNeur>>>
+                        (
+                                model->d_DeltaLayer[layerID + 1].vector,
+                                model->d_WLayer[layerID + 1].nbNeur,
+                                model->d_WLayer[layerID + 1].neurSize,
+                                model->d_DeltaLayer[layerID].vector
+                        );
+                calculateDelta<<<1,model->d_XLayer[layerID].length>>>
+                        (
+                                model->d_DeltaLayer[layerID].vector,
+                                model->d_XLayer[layerID].vector,
+                                model->d_XLayer[layerID].length
+                        );
             }
             if (layerID > 0) {
-                //On fait la mise à jour des poids
-                for (int neurID = 0; neurID < model->W(layerID).size(); ++neurID) {
-                    model->W(layerID)(neurID) -=
-                            learningRate * model->X(layerID - 1) * model->Delta(layerID)(neurID);
-                }
+                updateWeights<<<model->d_WLayer[layerID].nbNeur, model->d_WLayer[layerID].neurSize>>>
+                        (
+                                model->d_WLayer[layerID].vector,
+                                model->d_DeltaLayer[layerID].vector,
+                                model->d_XLayer[layerID].vector,
+                                model->d_WLayer[layerID].nbNeur,
+                                model->d_WLayer[layerID].neurSize,
+                                learningRate
+                        );
             }
         }
-
-
-        if (i * 100 / epochs != turn) {
-            turn = i * 100 / epochs;
-            if (turn % 2 == 0) {
+        if(epoch * 100 / epochs != turn) {
+            turn = epoch * 100 / epochs;
+            if (turn%2 == 0) {
                 end = std::chrono::high_resolution_clock::now();
                 tt = end - start;
                 total = (tt).count();
-                loading_bar(i, epochs, ((total / i) * epochs) - total);
+                loading_bar(epoch, epochs, ((total / epoch * epochs) - total));
             }
         }
-    }
 
-    std::cout << std::endl;
-    end = std::chrono::high_resolution_clock::now();
-    diff = end - start;
-    std::cout << "Time passed " << diff.count() << "s";
+    }
 }
 
-///**
-// * This function save the model in file passed in parameter
-// * @param model
-// * @param filename
-// */
-//void save_model_to_csv(Mlp_model *model, const char *filename) {
-//    std::ofstream file(filename);
-//    if (file.is_open()) {
-//        file << "model: " << model->l.transpose() << std::endl;
-//        file << "" << endl;
-//        for (int layerID = 1; layerID < model->W.size(); ++layerID) {
-//            for (int neurID = 0; neurID < model->W(layerID).size(); ++neurID) {
-//                for (int element = 0; element < model->W(layerID)(neurID).size(); ++element) {
-//                    if (element < model->W(layerID)(neurID).size()-1) {
-//                        file << model->W(layerID)(neurID)(element) << "|";
-//                    }
-//                    else {
-//                        file << model->W(layerID)(neurID)(element);
-//                    }
-//                }
-//                if (neurID < model->W(layerID).size()-1) {
-//                    file << ";";
-//                }
-//
-//            }
-//            file<<std::endl;
-//        }
-//        file.close();
-//    }
-//}
-
-////this function split a string with a delimiter a return an Eigen vector of int
-//VectorXd split(const std::string &s, char delim) {
-//    std::stringstream ss(s);
-//    std::string item;
-//    std::vector<std::string> tokens;
-//    while (std::getline(ss, item, delim)) {
-//        tokens.push_back(item);
-//    }
-//    VectorXd res(tokens.size()-1);
-//    for (int i = 1; i < tokens.size(); ++i) {
-//        res(i-1) = stoi(tokens[i]);
-//    }
-//    return res;
-//}
-////This function split a string to delimiter and return a string table
-//std::vector<std::string> split_string(const std::string &s, char delim) {
-//    std::stringstream ss(s);
-//    std::string item;
-//    std::vector<std::string> tokens;
-//    while (std::getline(ss, item, delim)) {
-//        tokens.push_back(item);
-//    }
-//    return tokens;
-//}
-///**
-// * This function load a mlp model from a file passed in parameter
-// * @param filename
-// * @return
-// */
-//Mlp_model *load_model_from_csv(const char *filename) {
-//    auto* model = new Mlp_model;
-//    std::ifstream file(filename);
-//    if (file.is_open()) {
-//        std::string line;
-//        //on copy la pemière ligne dans la variable tes
-//        getline(file, line);
-//        model->l = split(line, ' ');
-//        int size = model->l.size();
-//
-//        model->X.resize(size);
-//        model->W.resize(size);
-//        model->Delta.resize(size);
-//        model->Sum.resize(size);
-//        for (int i = 0; i < size; ++i) {
-//            getline(file, line);
-//            model->Delta(i).resize(model->l(i));
-//            model->Delta(i).setZero();
-//
-//            model->X(i).resize(model->l(i));
-//            model->X(i).setOnes();
-//            model->W(i).resize(model->l(i));
-//            model->Sum(i).resize(model->l(i));
-//            model->Sum(i).setZero();
-//            auto neur = split_string(line, ';');
-//
-//            if (i > 0) {
-//                for (int j = 0; j < model->l(i); ++j) {
-//                    auto elements = split_string(neur[j], '|');
-//                    model->W(i)(j).resize(model->l(i - 1));
-//                    for (int elementID = 0; elementID < elements.size(); ++elementID) {
-//                        model->W(i)(j)(elementID) = stof(elements[elementID]);
-//                    }
-//                }
-//            }
-//        }
-//    }
-//    return model;
-//}

@@ -15,15 +15,6 @@
 
 extern "C" {
 
-struct Mlp_model {
-    Eigen::VectorXd l;
-    int inputSize;
-    Eigen::VectorX<Eigen::VectorXf> X;
-    Eigen::VectorX<Eigen::VectorX<Eigen::VectorXf>> W;
-    Eigen::VectorX<Eigen::VectorX<float>> Delta;
-    Eigen::VectorX<Eigen::VectorXf> Sum;
-    Eigen::MatrixXf res;
-};
 struct Wlayer{
     float* vector;
     int neurSize;
@@ -37,7 +28,26 @@ struct Xlayer {
     float* vector;
     int length;
 };
+
+struct gpu_Wlayer{
+    float* vector;
+    int neurSize;
+    int nbNeur;
+};
+struct gpu_DeltaLayer {
+    float* vector;
+    int length;
+};
+struct gpu_Xlayer {
+    float* vector;
+    int length;
+};
+
 struct Sumlayer {
+    float* vector;
+    int length;
+};
+struct gpu_Sumlayer {
     float* vector;
     int length;
 };
@@ -48,31 +58,40 @@ struct Mlp_model_cuda {
     Wlayer* WLayer;
     Wlayer* WResLayer;
 
-    Xlayer* p_XLayer;
-    Wlayer* p_WLayer;
-    Wlayer* p_WResLayer;
+    gpu_Xlayer* d_XLayer;
+    gpu_Wlayer* d_WLayer;
+    gpu_Wlayer* d_WResLayer;
 
-    DeltaLayer* Deltalayer;
-    Sumlayer* Sum;
+    DeltaLayer* DeltaLayer;
+    gpu_DeltaLayer* d_DeltaLayer;
+    Sumlayer* Sumlayer;
+    gpu_Sumlayer* d_Sumlayer;
 };
 
-//DLLEXPORT Mlp_model *create_mlp_model(int tab[], int len);
+DLLEXPORT Mlp_model_cuda *create_mlp_model(int* tab,int len);
 
-DLLEXPORT float *predict_for_dll(Mlp_model *model, float *sample_inputs, int32_t num_features, bool isClassification);
+DLLEXPORT void predict(Mlp_model_cuda *model, Xlayer X, bool isClassification);
 
-DLLEXPORT void train_mlp_model(Mlp_model *model, float *all_samples_inputs, int32_t num_sample, int32_t num_features,
-                               float *all_samples_expected_outputs, int32_t num_outputs, float learningRate, int32_t epochs,
-                               int32_t isClassification);
-DLLEXPORT void delete_mlp_model(Mlp_model *model);
+DLLEXPORT void cuda_train(Mlp_model_cuda *model, float* all_samples_inputs, int num_samples, int num_features, float* all_samples_expected_outputs, int num_samples_outputs, int num_features_outputs, int epochs, float learningRate, bool isClassification);
 
-DLLEXPORT void save_model_to_csv(Mlp_model *model, const char *filename);
-DLLEXPORT Mlp_model *load_model_from_csv(const char *filename);
+//DLLEXPORT void save_model_to_csv(Mlp_model *model, const char *filename);
+//DLLEXPORT Mlp_model *load_model_from_csv(const char *filename);
 }
+void cuda_predict(Mlp_model_cuda *model, float* X, int num_features, bool isClassification);
 
-void loading_bar(int i, int n);
-void predict(Mlp_model *model, Eigen::VectorXf X, bool isClassification);
-Eigen::VectorXd split(const std::string &s, char delim);
-std::vector<std::string> split_string(const std::string &s, char delim);
+void hostSumLayer(float *X, float* Wres, int neurSize, int nbNeur);
+void hostSumTanLayer(float *X, float* Wres, int neurSize, int nbNeur);
+void hostCalculateLayer(float *W, float *X, float* Wres, int neurSize, int nbNeur);
 
+
+__global__ void calculateLayer(float *W, float *X, float* Wres, int neurSize, int nbNeur);
+__global__ void sumTanhLayer(float *X, float *Wres, int neurSize, int nbNeur);
+__global__ void sumLayer(float *X, float *Wres, int neurSize, int nbNeur);
+__global__ void calculateDeltaLayerForClassification(float* Delta, int nbNeur, float* X, float* Y);
+__global__ void calculateDeltaLayer(float* Delta, int nbNeur, float* X, float* Y);
+__global__ void calculateWeightAndDeltaForDelta(float* Delta, float* resLayer, float* W, int nbNeur, int neurSize);
+__global__ void calculateSumForDelta(float*  resLayer, int nbNeur, int neurSize, float* Delta);
+__global__ void calculateDelta(float* Delta, float* X, int nbNeur);
+__global__ void updateWeights(float* W, float* Delta, float* X, int nbNeur, int neurSize, float learningRate);
 
 #endif GAMEDETECTION_MLP_MODEL_H
