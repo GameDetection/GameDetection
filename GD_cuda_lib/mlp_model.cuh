@@ -1,7 +1,6 @@
 //
 // Created by Alexandre Carmone on 02/04/2022.
 //
-#include "Eigen/Core"
 #include <cstdint>
 
 #ifndef GAMEDETECTION_MLP_MODEL_H
