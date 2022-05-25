@@ -49,13 +49,13 @@ class MLP_model():
         native_flattened_Y_array = flattened_Y_type(*flattened_Y)
 
         self.dll.train_mlp_model.argtypes = [ctypes.c_void_p, flattened_X_type, ctypes.c_int32,
-                                             ctypes.c_int32, flattened_Y_type, ctypes.c_int32, ctypes.c_float,
-                                             ctypes.c_int32,
-                                             ctypes.c_int32]
+                                             ctypes.c_int32, flattened_Y_type, ctypes.c_int32, ctypes.c_int32,
+                                             ctypes.c_float, ctypes.c_int32, ctypes.c_int32]
         self.dll.train_mlp_model.restype = ctypes.c_void_p
 
         self.dll.train_mlp_model(self.model, native_flattened_X_array, len(inputs), len(inputs[0]),
-                                 native_flattened_Y_array, len(outputs), learning_rate, epochs, if_classification)
+                                 native_flattened_Y_array, len(outputs), len(outputs[0]),
+                                 learning_rate, epochs, if_classification)
 
     def predict(self, Xk, nb_outputs):
         predict_X_type = ctypes.c_float * len(Xk)
@@ -63,9 +63,8 @@ class MLP_model():
         self.dll.predict_for_dll.argtypes = [ctypes.c_void_p, predict_X_type, ctypes.c_int32, ctypes.c_int32]
         self.dll.predict_for_dll.restype = ctypes.POINTER(ctypes.c_float)
 
-        rslt = self.dll.predict_for_dll(self.model, native_predict_X, len(Xk), 1)
-
-        return np.ctypeslib.as_array(rslt, (1,))
+        rslt = self.dll.predict_for_dll(self.model, native_predict_X, len(Xk), nb_outputs)
+        return np.ctypeslib.as_array(rslt, (nb_outputs,))
 
     def load_dll(self, dll_name):
         """
@@ -84,7 +83,16 @@ class MLP_model():
                 j = j + 1
 
         return j / Y.shape[0]
-
+    def test_model2(self, X, Y, nb_outputs):
+        j = 0
+        for i in range(Y.shape[0]):
+            g = self.predict(X[i].tolist(), nb_outputs)
+            Yk = Y[i]
+            g_indices = [index for index, item in enumerate(g) if item == max(g)]
+            Yk_indices = [index for index, item in enumerate(Yk) if item == max(Yk)]
+            if g_indices[0] == Yk_indices[0]:
+                j = j + 1
+        return j / Y.shape[0]
     def display_limit(self, nb_points, max_value):
         validation_points = [[[i / max_value, j / max_value] for i in range(-nb_points, nb_points)] for j in range(-nb_points, nb_points)]
         XOnes = [p[0] for lp in validation_points for p in lp]
@@ -96,22 +104,38 @@ class MLP_model():
 ### Cross :
 # Linear Model    : KO
 # MLP (2, 1)   : OK
-X = np.concatenate([np.random.random((50,2)) * 0.9 + np.array([1, 1]), np.random.random((50,2)) * 0.9 + np.array([2, 2])])
-Y = np.concatenate([np.ones((50, 1)), np.ones((50, 1)) * -1.0])
+# X = np.concatenate([np.random.random((50,2)) * 0.9 + np.array([1, 1]), np.random.random((50,2)) * 0.9 + np.array([2, 2])])
+# Y = np.concatenate([np.ones((50, 1)), np.ones((50, 1)) * -1.0])
 
 #%%
-plt.scatter(X[0:50, 0], X[0:50, 1], color='blue')
-plt.scatter(X[50:100,0], X[50:100,1], color='red')
+# plt.scatter(X[0:50, 0], X[0:50, 1], color='blue')
+# plt.scatter(X[50:100,0], X[50:100,1], color='red')
+# plt.show()
+# plt.clf()
+# %%
+X = np.random.random((1000, 2)) * 2.0 - 1.0
+Y = np.array([[1, 0, 0] if abs(p[0] % 0.5) <= 0.25 and abs(p[1] % 0.5) > 0.25 else [0, 1, 0] if abs(p[0] % 0.5) > 0.25 and abs(p[1] % 0.5) <= 0.25 else [0, 0, 1] for p in X])
+
+plt.scatter(np.array(list(map(lambda elt : elt[1], filter(lambda c: Y[c[0]][0] == 1, enumerate(X)))))[:,0], np.array(list(map(lambda elt : elt[1], filter(lambda c: Y[c[0]][0] == 1, enumerate(X)))))[:,1], color='blue')
+plt.scatter(np.array(list(map(lambda elt : elt[1], filter(lambda c: Y[c[0]][1] == 1, enumerate(X)))))[:,0], np.array(list(map(lambda elt : elt[1], filter(lambda c: Y[c[0]][1] == 1, enumerate(X)))))[:,1], color='red')
+plt.scatter(np.array(list(map(lambda elt : elt[1], filter(lambda c: Y[c[0]][2] == 1, enumerate(X)))))[:,0], np.array(list(map(lambda elt : elt[1], filter(lambda c: Y[c[0]][2] == 1, enumerate(X)))))[:,1], color='green')
 plt.show()
 plt.clf()
-# %%
-My_mlp = MLP_model([2, 1000, 1000, 1])
-# %%
-print(My_mlp.test_model(X, Y))
-# %%
-My_mlp.display_limit(100, 100)
-# %%
-My_mlp.train(X.tolist(), Y.tolist(), 10000, 0.01, 1)
 
-My_mlp.display_limit(100, 100)
-print(My_mlp.test_model(X, Y))
+My_mlp = MLP_model([2, 16, 12, 16, 3])
+# %%
+print(My_mlp.test_model2(X, Y,3))
+# %%
+# My_mlp.display_limit(100, 100)
+# %%
+My_mlp.train(X.tolist(), Y.tolist(), 10000, 0.1, 1)
+# My_mlp.display_limit(100, 100)
+print(My_mlp.test_model2(X, Y,3))
+My_mlp.train(X.tolist(), Y.tolist(), 100000, 0.01, 1)
+print(My_mlp.test_model2(X, Y,3))
+My_mlp.train(X.tolist(), Y.tolist(), 10000000, 0.0001, 1)
+# My_mlp.display_limit(100, 100)
+print(My_mlp.test_model2(X, Y, 3))
+#
+# My_mlp.display_limit(100, 10)
+# print(My_mlp.test_model(X, Y))

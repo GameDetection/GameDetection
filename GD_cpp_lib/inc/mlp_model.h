@@ -30,8 +30,8 @@ DLLEXPORT Mlp_model *create_mlp_model(int tab[], int len);
 DLLEXPORT float *predict_for_dll(Mlp_model *model, float *sample_inputs, int32_t num_features, bool isClassification);
 
 DLLEXPORT void train_mlp_model(Mlp_model *model, float *all_samples_inputs, int32_t num_sample, int32_t num_features,
-                     float *all_samples_expected_outputs, int32_t num_outputs, float learningRate, int32_t epochs,
-                     int32_t isClassification);
+                               float *all_samples_expected_outputs, int32_t num_outputs, int32_t num_output_features, float learningRate, int32_t epochs,
+                               int32_t isClassification);
 DLLEXPORT void delete_mlp_model(Mlp_model *model);
 
 DLLEXPORT void save_model_to_csv(Mlp_model *model, const char *filename);

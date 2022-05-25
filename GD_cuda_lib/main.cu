@@ -8,15 +8,15 @@ using namespace std;
 
 int main() {
 //    srand((unsigned int) time(0));
-    int len = 5;
-    int* tab = new int[5]{10, 10000, 1000, 100, 2};
+    int len = 3;
+    int* tab = new int[3]{ 2, 2,1};
 
     try {
         Mlp_model_cuda *model = create_mlp_model(tab, len);
 //        auto length = model->XLayer[model->lLenght - 1].length;
 //        auto lastX = model->XLayer[model->lLenght - 1].vector;
 
-        int nbFeatures = 10;
+        int nbFeatures = 2;
         int nbSamples = 10;
         //create a random linear matrix
         auto* X = new float[nbSamples * nbFeatures];
@@ -44,13 +44,14 @@ int main() {
 //            cout << endl;
 //        }
 
-        cuda_train(model, X, nbSamples, nbFeatures, Y, nbSamplesOutputs, nbFeaturesOutputs, 100000, 0.004, 1);
+//        cuda_train(model, X, nbSamples, nbFeatures, Y, nbSamplesOutputs, nbFeaturesOutputs, 1000, 0.004, 1);
+        train(model, X, nbSamples, nbFeatures, Y, nbSamplesOutputs, nbFeaturesOutputs, 2, 0.004, 1);
 
-        delete model;
-        cout << "end" <<  endl;
+//        delete model;
     }
     catch (const char* message) {
         cout << message <<  endl;
     }
     return 0;
 }
+

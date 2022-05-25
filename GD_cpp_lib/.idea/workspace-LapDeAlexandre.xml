@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="CMakeRunConfigurationManager">
+    <generated>
+      <config projectName="mlp_model" targetName="mlp_model" />
+    </generated>
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug-Visual Studio" ENABLED="true" CONFIG_NAME="Debug" TOOLCHAIN_NAME="Visual Studio" GENERATION_OPTIONS="-G &quot;Visual Studio 17 2022&quot;" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="c86210b0-0bc9-4d47-9c9c-b57202a2c87e" name="Changes" comment="Réorganisation">
+      <change beforePath="$PROJECT_DIR$/../GD_cuda_lib/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../GD_cuda_lib/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GD_cuda_lib/main.cu" beforeDir="false" afterPath="$PROJECT_DIR$/../GD_cuda_lib/main.cu" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GD_cuda_lib/mlp_model.cuh" beforeDir="false" afterPath="$PROJECT_DIR$/../GD_cuda_lib/mlp_model.cuh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GD_cuda_lib/src/mlp_model.cu" beforeDir="false" afterPath="$PROJECT_DIR$/../GD_cuda_lib/src/mlp_model.cu" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GD_cuda_lib/vector_operator.cuh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GD_python/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/../GD_python/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GD_python/notebooks/Cas de Tests pour le rendu 2.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/../GD_python/notebooks/Cas de Tests pour le rendu 2.ipynb" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager">
+    <option name="groupingKeys">
+      <option value="directory" />
+    </option>
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug-Visual Studio" />
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="python_imp" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectApplicationVersion">
+    <option name="ide" value="CLion" />
+    <option name="majorVersion" value="2022" />
+    <option name="minorVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="28gyUG5qPyqtVI8FcQSDDIS7gHE" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "cmake.loaded.for.project": "true",
+    "last_opened_file_path": "C:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection/GD_cpp_lib/cmake-build-debug-visual-studio/Debug",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "structure.view.defaults.are.configured": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Carmo\OneDrive\Documents\ESGI\projet_annuel\GameDetection\GD_cpp_lib\cmake-build-debug-visual-studio\Debug" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="mlp_model" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" CONFIG_NAME="Debug-Visual Studio" EXPLICIT_BUILD_TARGET_NAME="all">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c86210b0-0bc9-4d47-9c9c-b57202a2c87e" name="Changes" comment="" />
+      <created>1651652536310</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1651652536310</updated>
+      <workItem from="1651652537491" duration="690000" />
+      <workItem from="1651653243130" duration="4000" />
+      <workItem from="1651671641017" duration="1609000" />
+      <workItem from="1651737465632" duration="75000" />
+      <workItem from="1651740158271" duration="1257000" />
+      <workItem from="1651743458132" duration="627000" />
+      <workItem from="1651769331173" duration="4495000" />
+      <workItem from="1651817434540" duration="12851000" />
+      <workItem from="1651839966546" duration="2529000" />
+      <workItem from="1651855977575" duration="161000" />
+      <workItem from="1651856147886" duration="208000" />
+      <workItem from="1651857351332" duration="65000" />
+      <workItem from="1651860736334" duration="682000" />
+      <workItem from="1651910614642" duration="2992000" />
+      <workItem from="1651917643245" duration="3649000" />
+      <workItem from="1651936198097" duration="62000" />
+      <workItem from="1652005346879" duration="10000" />
+      <workItem from="1652079932988" duration="651000" />
+      <workItem from="1652104431256" duration="13000" />
+      <workItem from="1652295665685" duration="1602000" />
+      <workItem from="1652877403870" duration="613000" />
+      <workItem from="1652879788055" duration="2000" />
+      <workItem from="1652945576118" duration="36000" />
+      <workItem from="1653029847298" duration="1351000" />
+    </task>
+    <task id="LOCAL-00001" summary="Réorganisation">
+      <created>1651652828133</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1651652828133</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Réorganisation">
+      <created>1651830016705</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1651830016705</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Réorganisation" />
+    <option name="LAST_COMMIT_MESSAGE" value="Réorganisation" />
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="CMakeRunConfiguration">
+        <watch expression="line" />
+        <watch expression="total" />
+      </configuration>
+    </watches-manager>
+  </component>
+</project>
