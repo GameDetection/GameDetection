@@ -72,7 +72,7 @@ DLLEXPORT Mlp_model_cuda *create_mlp_model(int32_t* tab, int32_t len);
 DLLEXPORT float* predict(Mlp_model_cuda *model, float* X, int32_t lenght, bool isClassification);
 
 DLLEXPORT void cuda_train(Mlp_model_cuda *model, float* all_samples_inputs, int32_t num_samples, int32_t num_features, float* all_samples_expected_outputs, int32_t num_samples_outputs, int32_t num_features_outputs, int32_t epochs, float learningRate, bool isClassification);
-DLLEXPORT void train(Mlp_model_cuda *model, float* all_samples_inputs, int32_t num_samples, int32_t num_features, float* all_samples_expected_outputs, int32_t num_samples_outputs, int32_t num_features_outputs, int32_t epochs, float learningRate, bool isClassification);
+DLLEXPORT void host_train(Mlp_model_cuda *model, float* all_samples_inputs, int32_t num_samples, int32_t num_features, float* all_samples_expected_outputs, int32_t num_samples_outputs, int32_t num_features_outputs, int32_t epochs, float learningRate, bool isClassification);
 //DLLEXPORT void save_model_to_csv(Mlp_model *model, const char *filename);
 //DLLEXPORT Mlp_model *load_model_from_csv(const char *filename);
 }

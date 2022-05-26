@@ -8,9 +8,13 @@ import itertools
 class MLP_model():
 
     def __init__(self, npl):
-        self.model = None
         self.dll = self.load_dll("models/mlp_model.dll")
         self.model = self.create_mlp_model(npl)
+
+    # make an other constructor which loads the model from a file
+    # def __init__(self, model_name, a):
+    #     self.dll = self.load_dll("models/mlp_model.dll")
+    #     self.load_dll(model_name)
 
     def create_mlp_model(self, npl):
         """
@@ -73,6 +77,22 @@ class MLP_model():
         dll = ctypes.cdll.LoadLibrary(dll_name)
         return dll
 
+    def load_model(self, model_name):
+        self.dll.load_model.argtypes = [ctypes.c_char_p]
+        self.dll.load_model.restype = ctypes.c_void_p
+
+        self.model = self.dll.load_model(model_name)
+
+    def save_model(self, filename):
+        string_type = ctypes.c_wchar_p * len(filename)
+        print(string_type)
+
+        path = ctypes.c_wchar_p(filename)
+
+        self.dll.save_model.argtypes = [ctypes.c_void_p, string_type]
+        self.dll.save_model.restype = None
+        self.dll.save_model(self.model, path)
+
     def test_model(self, X, Y):
         j = 0
         for i in range(Y.shape[0]):
@@ -83,6 +103,7 @@ class MLP_model():
                 j = j + 1
 
         return j / Y.shape[0]
+
     def test_model2(self, X, Y, nb_outputs):
         j = 0
         for i in range(Y.shape[0]):
@@ -93,13 +114,17 @@ class MLP_model():
             if g_indices[0] == Yk_indices[0]:
                 j = j + 1
         return j / Y.shape[0]
+
     def display_limit(self, nb_points, max_value):
-        validation_points = [[[i / max_value, j / max_value] for i in range(-nb_points, nb_points)] for j in range(-nb_points, nb_points)]
+        validation_points = [[[i / max_value, j / max_value] for i in range(-nb_points, nb_points)] for j in
+                             range(-nb_points, nb_points)]
         XOnes = [p[0] for lp in validation_points for p in lp]
         XTwos = [p[1] for lp in validation_points for p in lp]
         colors = ['blue' if self.predict(p, 1) >= 0 else 'red' for lp in validation_points for p in lp]
         plt.scatter(XOnes, XTwos, c=colors)
         plt.show()
+
+
 # %%
 ### Cross :
 # Linear Model    : KO
@@ -107,35 +132,44 @@ class MLP_model():
 # X = np.concatenate([np.random.random((50,2)) * 0.9 + np.array([1, 1]), np.random.random((50,2)) * 0.9 + np.array([2, 2])])
 # Y = np.concatenate([np.ones((50, 1)), np.ones((50, 1)) * -1.0])
 
-#%%
+# %%
 # plt.scatter(X[0:50, 0], X[0:50, 1], color='blue')
 # plt.scatter(X[50:100,0], X[50:100,1], color='red')
 # plt.show()
 # plt.clf()
 # %%
 X = np.random.random((1000, 2)) * 2.0 - 1.0
-Y = np.array([[1, 0, 0] if abs(p[0] % 0.5) <= 0.25 and abs(p[1] % 0.5) > 0.25 else [0, 1, 0] if abs(p[0] % 0.5) > 0.25 and abs(p[1] % 0.5) <= 0.25 else [0, 0, 1] for p in X])
+Y = np.array([[1, 0, 0] if abs(p[0] % 0.5) <= 0.25 and abs(p[1] % 0.5) > 0.25 else [0, 1, 0] if abs(
+    p[0] % 0.5) > 0.25 and abs(p[1] % 0.5) <= 0.25 else [0, 0, 1] for p in X])
 
-plt.scatter(np.array(list(map(lambda elt : elt[1], filter(lambda c: Y[c[0]][0] == 1, enumerate(X)))))[:,0], np.array(list(map(lambda elt : elt[1], filter(lambda c: Y[c[0]][0] == 1, enumerate(X)))))[:,1], color='blue')
-plt.scatter(np.array(list(map(lambda elt : elt[1], filter(lambda c: Y[c[0]][1] == 1, enumerate(X)))))[:,0], np.array(list(map(lambda elt : elt[1], filter(lambda c: Y[c[0]][1] == 1, enumerate(X)))))[:,1], color='red')
-plt.scatter(np.array(list(map(lambda elt : elt[1], filter(lambda c: Y[c[0]][2] == 1, enumerate(X)))))[:,0], np.array(list(map(lambda elt : elt[1], filter(lambda c: Y[c[0]][2] == 1, enumerate(X)))))[:,1], color='green')
-plt.show()
-plt.clf()
+plt.scatter(np.array(list(map(lambda elt: elt[1], filter(lambda c: Y[c[0]][0] == 1, enumerate(X)))))[:, 0],
+            np.array(list(map(lambda elt: elt[1], filter(lambda c: Y[c[0]][0] == 1, enumerate(X)))))[:, 1],
+            color='blue')
+plt.scatter(np.array(list(map(lambda elt: elt[1], filter(lambda c: Y[c[0]][1] == 1, enumerate(X)))))[:, 0],
+            np.array(list(map(lambda elt: elt[1], filter(lambda c: Y[c[0]][1] == 1, enumerate(X)))))[:, 1], color='red')
+plt.scatter(np.array(list(map(lambda elt: elt[1], filter(lambda c: Y[c[0]][2] == 1, enumerate(X)))))[:, 0],
+            np.array(list(map(lambda elt: elt[1], filter(lambda c: Y[c[0]][2] == 1, enumerate(X)))))[:, 1],
+            color='green')
+# plt.show()
+# plt.clf()
 
 My_mlp = MLP_model([2, 16, 12, 16, 3])
 # %%
-print(My_mlp.test_model2(X, Y,3))
+print(My_mlp.test_model2(X, Y, 3))
 # %%
 # My_mlp.display_limit(100, 100)
 # %%
 My_mlp.train(X.tolist(), Y.tolist(), 10000, 0.1, 1)
+
+My_mlp.save_model("model.txt")
+
 # My_mlp.display_limit(100, 100)
-print(My_mlp.test_model2(X, Y,3))
-My_mlp.train(X.tolist(), Y.tolist(), 100000, 0.01, 1)
-print(My_mlp.test_model2(X, Y,3))
-My_mlp.train(X.tolist(), Y.tolist(), 10000000, 0.0001, 1)
-# My_mlp.display_limit(100, 100)
-print(My_mlp.test_model2(X, Y, 3))
+# print(My_mlp.test_model2(X, Y,3))
+# My_mlp.train(X.tolist(), Y.tolist(), 100000, 0.01, 1)
+# print(My_mlp.test_model2(X, Y,3))
+# My_mlp.train(X.tolist(), Y.tolist(), 10000000, 0.0001, 1)
+# # My_mlp.display_limit(100, 100)
+# print(My_mlp.test_model2(X, Y, 3))
 #
 # My_mlp.display_limit(100, 10)
 # print(My_mlp.test_model(X, Y))

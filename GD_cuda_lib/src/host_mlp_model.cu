@@ -11,7 +11,11 @@ using namespace std;
 void hostCalculateDeltaLayerForClassification(float *Delta, int nbNeur, float *X, float *Y) {
     for (int i = 0; i < nbNeur; i++) {
         Delta[i] = (1 - X[i] * X[i]) * (X[i] - Y[i]);
+        cout << "X[i] : " << X[i] << endl;
+        cout << "Calc1 : " << (1 - X[i] * X[i]) << endl;
+        cout << "Delta : " << Delta[i] << endl;
     }
+    cout << endl;
 }
 
 void hostCalculateDeltaLayer(float *Delta, int nbNeur, float *X, float *Y) {
@@ -22,7 +26,8 @@ void hostCalculateDeltaLayer(float *Delta, int nbNeur, float *X, float *Y) {
 
 void hostCalculateWeightAndDeltaForDelta(float *Delta, float *resLayer, float *W, int nbNeur, int neurSize) {
     for (int i = 0; i < nbNeur * neurSize; i++) {
-        cout << "Delta: " <<  Delta[i % neurSize] << endl;
+        cout << "W" << W[i] << endl;
+        cout << "Delta: " << Delta[i % neurSize] << endl;
         resLayer[i] = Delta[i % neurSize] * W[i];
     }
 }
@@ -54,7 +59,7 @@ void hostSumLayer(float *X, float *Wres, int neurSize, int nbNeur) {
         for (int j = 0; j < neurSize + (i * neurSize); j++) {
             X[i] += Wres[j];
         }
-        X[i] += 1;
+        cout << "X : " << X[i] << endl;
     }
 }
 
@@ -64,13 +69,15 @@ void hostSumTanLayer(float *X, float *Wres, int neurSize, int nbNeur) {
         for (int j = 0; j < neurSize + (i * neurSize); j++) {
             X[i] += Wres[j];
         }
-        X[i] = tanh(X[i] + 1);
+        X[i] = tanh(X[i]);
+        cout << "X : " << X[i] << endl;
     }
 }
 
 void hostCalculateLayer(float *W, float *X, float *Wres, int neurSize, int nbNeur) {
     for (int i = 0; i < neurSize * nbNeur; i++) {
         Wres[i] = W[i] * X[i % neurSize];
+        cout << "Wres[" << i << "] : " << Wres[i] << endl;
     }
 }
 
@@ -111,9 +118,9 @@ void host_predict(Mlp_model_cuda *model, float *X, int32_t num_features, bool is
     }
 }
 
-void train(Mlp_model_cuda *model, float *all_samples_inputs, int32_t num_samples, int32_t num_features,
-           float *all_samples_expected_outputs, int32_t num_samples_outputs, int32_t num_features_outputs,
-           int32_t epochs, float learningRate, bool isClassification) {
+void host_train(Mlp_model_cuda *model, float *all_samples_inputs, int32_t num_samples, int32_t num_features,
+                float *all_samples_expected_outputs, int32_t num_samples_outputs, int32_t num_features_outputs,
+                int32_t epochs, float learningRate, bool isClassification) {
     auto X = getMatrixXfFromLineMatrix(all_samples_inputs, num_samples, num_features);
     auto Y = getMatrixXfFromLineMatrix(all_samples_expected_outputs, num_samples_outputs, num_features_outputs);
     cout << "Data convert to matrix" << endl;
@@ -159,16 +166,16 @@ void train(Mlp_model_cuda *model, float *all_samples_inputs, int32_t num_samples
                 hostCalculateWeightAndDeltaForDelta
                         (
                                 model->DeltaLayer[layerID + 1].vector,
-                                model->WResLayer[layerID].vector,
+                                model->WResLayer[layerID + 1].vector,
                                 model->WLayer[layerID + 1].vector,
                                 model->WLayer[layerID + 1].nbNeur,
                                 model->WLayer[layerID + 1].neurSize
                         );
                 hostCalculateSumForDelta
                         (
-                                model->DeltaLayer[layerID + 1].vector,
-                                model->WLayer[layerID + 1].nbNeur,
-                                model->WLayer[layerID + 1].neurSize,
+                                model->WResLayer[layerID + 1].vector,
+                                model->WResLayer[layerID + 1].nbNeur,
+                                model->WResLayer[layerID + 1].neurSize,
                                 model->DeltaLayer[layerID].vector
                         );
                 hostCalculateDelta

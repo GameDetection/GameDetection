@@ -4,9 +4,12 @@
 
 #include "../inc/mlp_modelV2.h"
 #include <chrono>
+#include <fstream>
+#include <filesystem>
 
 using namespace Eigen;
 using namespace std;
+using namespace filesystem;
 /**
  * This function creates a new model
  * @param tab
@@ -241,4 +244,102 @@ MatrixXf getMatrixXfFromLineMatrix(float table[], int rows, int cols) {
         res(i, cols) = 1;
     }
     return res;
+}
+
+
+void save_model(Mlp_model *model, char *filename) {
+    cout << "Saving the model at :" << filename << endl;
+    std::ofstream file(filename);
+    if (file.is_open()) {
+        file << "model: " << model->l.transpose() << std::endl;
+        file << "" << endl;
+        for (int layerID = 1; layerID < model->W.size(); ++layerID) {
+            for (int neurID = 0; neurID < model->W(layerID).size(); ++neurID) {
+                for (int element = 0; element < model->W(layerID)(neurID).size(); ++element) {
+                    if (element < model->W(layerID)(neurID).size()-1) {
+                        file << model->W(layerID)(neurID)(element) << "|";
+                    }
+                    else {
+                        file << model->W(layerID)(neurID)(element);
+                    }
+                }
+                if (neurID < model->W(layerID).size()-1) {
+                    file << ";";
+                }
+
+            }
+            file<<std::endl;
+        }
+        file.close();
+        cout << "Model saved at : " << filename << endl;
+    }
+}
+
+//this function split a string with a delimiter a return an Eigen vector of int
+VectorXd split(const std::string &s, char delim) {
+    std::stringstream ss(s);
+    std::string item;
+    std::vector<std::string> tokens;
+    while (std::getline(ss, item, delim)) {
+        tokens.push_back(item);
+    }
+    VectorXd res(tokens.size()-1);
+    for (int i = 1; i < tokens.size(); ++i) {
+        res(i-1) = stoi(tokens[i]);
+    }
+    return res;
+}
+//This function split a string to delimiter and return a string table
+std::vector<std::string> split_string(const std::string &s, char delim) {
+    std::stringstream ss(s);
+    std::string item;
+    std::vector<std::string> tokens;
+    while (std::getline(ss, item, delim)) {
+        tokens.push_back(item);
+    }
+    return tokens;
+}
+/**
+ * This function load a mlp model from a file passed in parameter
+ * @param filename
+ * @return
+ */
+Mlp_model *load_model(char *filename) {
+    auto* model = new Mlp_model;
+    std::ifstream file(filename);
+    if (file.is_open()) {
+        std::string line;
+        //on copy la pemière ligne dans la variable tes
+        getline(file, line);
+        model->l = split(line, ' ');
+        int size = model->l.size();
+
+        model->X.resize(size);
+        model->W.resize(size);
+        model->Delta.resize(size);
+        model->Sum.resize(size);
+        for (int i = 0; i < size; ++i) {
+            getline(file, line);
+            model->Delta(i).resize(model->l(i) + 1);
+            model->Delta(i).setZero();
+
+            model->X(i).resize(model->l(i) + 1);
+            model->X(i).setOnes();
+            model->W(i).resize(model->l(i));
+            model->Sum(i).resize(model->l(i) + 1);
+            model->Sum(i).setZero();
+            auto neur = split_string(line, ';');
+
+            if (i > 0) {
+                for (int j = 0; j < model->l(i); ++j) {
+                    auto elements = split_string(neur[j], '|');
+                    model->W(i)(j).resize(model->l(i - 1) + 1);
+                    for (int elementID = 0; elementID < elements.size(); ++elementID) {
+                        model->W(i)(j)(elementID) = stof(elements[elementID]);
+                    }
+                }
+            }
+        }
+    }
+    return model;
 }

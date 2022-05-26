@@ -58,18 +58,33 @@ int main() {
 
     train_mlp_model(model, X1, 4, 2, Y1, 4,1, 0.01, 100000, 1);
     cout << endl;
-    for (int sample = 0; sample < n; ++sample) {
-        predict_for_dll(model, X[sample], 2, 1);
-        cout << "G(Xk): " << model->X(2)(0)  << endl << "Yk: " << Y[sample][0] << endl;
+//    for (int sample = 0; sample < n; ++sample) {
+//        predict_for_dll(model, X[sample], 2, 1);
+//        cout << "G(Xk): " << model->X(2)(0)  << endl << "Yk: " << Y[sample][0] << endl;
+//    }
+    cout << "On parcours les couches pour voir les poids" << endl;
+    for (int layer = 1; layer < model->W.size(); ++layer) {
+        for (int neur = 0; neur < model->W(layer).size(); ++neur) {
+            cout << "W" << layer << "," << neur << ": " << model->W(layer)(neur) << endl;
+        }
     }
-
 //    std::cout << "Time taken by function: " << diff.count() << " seconds" << std::endl;
 
-//    save_model_to_csv(model, "C:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection/model.csv");
+    save_model_to_csv(model, "C:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection/GD_cpp_lib/model.csv");
 
-//    model = load_model("C:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection/model.txt");
-//    save_model_to_csv(model, "C:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection/GD_cpp_lib/model.csv");
-//    model = load_model_from_csv("C:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection/GD_cpp_lib/model.csv");
+
+    model = load_model_from_csv("C:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection/GD_cpp_lib/model.csv");
+    cout << "On parcours les couches pour voir les poids" << endl;
+    for (int layer = 1; layer < model->W.size(); ++layer) {
+        for (int neur = 0; neur < model->W(layer).size(); ++neur) {
+            cout << "W" << layer << "," << neur << ": " << model->W(layer)(neur) << endl;
+        }
+    }
+    cout << endl;
+//    for (int sample = 0; sample < n; ++sample) {
+//        predict_for_dll(model, X[sample], 2, 1);
+//        cout << "G(Xk): " << model->X(2)(0)  << endl << "Yk: " << Y[sample][0] << endl;
+//    }
 //    save_model_to_csv(model, "C:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection/GD_cpp_lib/model.csv");
 
     return 0;
