@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Eigen"
+#include <thread>
 //#include "inc/mlp_model.h"
 #include "inc/mlp_modelV2.h"
 //#include "../GD_cpp_linear_model/linear_model.h"
@@ -12,8 +13,11 @@ using namespace std;
 
 
 int main() {
-
-
+    Eigen::setNbThreads(16);
+    int nbT = Eigen::nbThreads();
+    cout << "Number of threads: " << nbT << endl;
+//    Eigen::setNbThreads(16);
+//    Eigen::initParallel();
     srand((unsigned int) time(0));
     //calculate the time of the program
 
@@ -56,7 +60,7 @@ int main() {
     predict_for_dll(model, X[0], 2, 1);
     cout << "res: " << endl << model->X(2) << endl;
 
-    train_mlp_model(model, X1, 4, 2, Y1, 4,1, 0.01, 100000, 1);
+    train_mlp_model(model, X1, 4, 2, Y1, 4,1, 0.01, 1000000, 1);
     cout << endl;
 //    for (int sample = 0; sample < n; ++sample) {
 //        predict_for_dll(model, X[sample], 2, 1);
@@ -70,10 +74,10 @@ int main() {
     }
 //    std::cout << "Time taken by function: " << diff.count() << " seconds" << std::endl;
 
-    save_model_to_csv(model, "C:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection/GD_cpp_lib/model.csv");
+    save_model(model, "C:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection/GD_cpp_lib/model.csv");
 
 
-    model = load_model_from_csv("C:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection/GD_cpp_lib/model.csv");
+    model = load_model("C:/Users/Carmo/OneDrive/Documents/ESGI/projet_annuel/GameDetection/GD_cpp_lib/model.csv");
     cout << "On parcours les couches pour voir les poids" << endl;
     for (int layer = 1; layer < model->W.size(); ++layer) {
         for (int neur = 0; neur < model->W(layer).size(); ++neur) {

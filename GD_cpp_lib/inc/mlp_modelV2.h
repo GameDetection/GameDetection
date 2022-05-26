@@ -12,6 +12,7 @@ using namespace Eigen;
 #else
 #define DLLEXPORT
 #endif
+
 extern "C" {
 
 struct Mlp_model {
@@ -34,7 +35,7 @@ DLLEXPORT void train_mlp_model(Mlp_model *model, float *all_samples_inputs, int3
                                float learningRate, int32_t epochs,
                                int32_t isClassification);
 
-DLLEXPORT void save_model(Mlp_model *model, char *filename);
+DLLEXPORT void save_model(Mlp_model *model, const char *filename);
 DLLEXPORT Mlp_model *load_model(const char *filename);
 }
 

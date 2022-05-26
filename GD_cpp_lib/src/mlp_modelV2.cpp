@@ -247,7 +247,7 @@ MatrixXf getMatrixXfFromLineMatrix(float table[], int rows, int cols) {
 }
 
 
-void save_model(Mlp_model *model, char *filename) {
+void save_model(Mlp_model *model,const char *filename) {
     cout << "Saving the model at :" << filename << endl;
     std::ofstream file(filename);
     if (file.is_open()) {
@@ -304,7 +304,7 @@ std::vector<std::string> split_string(const std::string &s, char delim) {
  * @param filename
  * @return
  */
-Mlp_model *load_model(char *filename) {
+Mlp_model *load_model(const char *filename) {
     auto* model = new Mlp_model;
     std::ifstream file(filename);
     if (file.is_open()) {

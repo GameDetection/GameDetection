@@ -34,8 +34,8 @@ DLLEXPORT void train_mlp_model(Mlp_model *model, float *all_samples_inputs, int3
                                int32_t isClassification);
 DLLEXPORT void delete_mlp_model(Mlp_model *model);
 
-DLLEXPORT void save_model_to_csv(Mlp_model *model, const char *filename);
-DLLEXPORT Mlp_model *load_model_from_csv(const char *filename);
+DLLEXPORT void save_model(Mlp_model *model, const char *filename);
+DLLEXPORT Mlp_model *load_model(const char *filename);
 }
 
 void loading_bar(int i, int n);
