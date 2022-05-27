@@ -95,9 +95,13 @@ void predict(Mlp_model *model, VectorXf X, bool isClassification) {
         for (int neurID = 0; neurID < model->W(layerID).size(); neurID++) {
 
             if (model->X.size() - 1 == layerID and !isClassification) {
-                model->X(layerID)(neurID) = (model->W(layerID)(neurID).transpose() * model->X(layerID - 1));
+                model->X(layerID)(neurID) =
+                        (model->W(layerID)(neurID).transpose()
+                        * model->X(layerID - 1));
             } else {
-                model->X(layerID)(neurID) = tanh((model->W(layerID)(neurID).transpose() * model->X(layerID - 1)));
+                model->X(layerID)(neurID) =
+                        tanh((model->W(layerID)(neurID).transpose()
+                        * model->X(layerID - 1)));
             }
         }
     }
@@ -149,7 +153,8 @@ void train_mlp_model(Mlp_model *model, float *all_samples_inputs, int32_t num_sa
                 if (isClassification) {
                     //on fait le calcul de la dernière couche en fonction de la classification
 
-                    model->Delta(layerID) = (1 - model->X(layerID).cwiseProduct(model->X(layerID)).array()) *
+                    model->Delta(layerID) = (1 - model->X(layerID)
+                            .cwiseProduct(model->X(layerID)).array()) *
                                             (model->X(layerID) - Yk).array();
                 } else {
                     model->Delta(layerID) = model->X(layerID) - Yk;
@@ -160,16 +165,19 @@ void train_mlp_model(Mlp_model *model, float *all_samples_inputs, int32_t num_sa
                 model->Sum(layerID).setZero();
                 // pour chaque neuronne dans la couche
                 for (int neurID = 0; neurID < model->W(layerID + 1).size(); ++neurID) {
-                    model->Sum(layerID) += model->W(layerID + 1)(neurID) * model->Delta(layerID + 1)(neurID);
+                    model->Sum(layerID) += model->W(layerID + 1)(neurID)
+                            * model->Delta(layerID + 1)(neurID);
                 }
                 //on calcule le delta de la couche
                 model->Delta(layerID) =
-                        (1 - model->X(layerID).cwiseProduct(model->X(layerID)).array()) * model->Sum(layerID).array();
+                        (1 - model->X(layerID).cwiseProduct(model->X(layerID)).array())
+                        * model->Sum(layerID).array();
             }
             if (layerID > 0) {
                 //On fait la mise à jour des poids
                 for (int neurID = 0; neurID < model->W(layerID).size(); ++neurID) {
-                    model->W(layerID)(neurID) -= learningRate * model->X(layerID - 1) * model->Delta(layerID)(neurID);
+                    model->W(layerID)(neurID) -= learningRate * model->X(layerID - 1)
+                            * model->Delta(layerID)(neurID);
                 }
             }
         }
@@ -246,7 +254,11 @@ MatrixXf getMatrixXfFromLineMatrix(float table[], int rows, int cols) {
     return res;
 }
 
-
+/**
+ * This fucntion is used to saved the model in a file
+ * @param model
+ * @param filename
+ */
 void save_model(Mlp_model *model,const char *filename) {
     cout << "Saving the model at :" << filename << endl;
     std::ofstream file(filename);

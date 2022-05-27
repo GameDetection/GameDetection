@@ -41,6 +41,14 @@ float predict(Linear_model* model, float Xarray[], int Xlength) {
         return -1;
     }
 }
+
+/**
+ * This function is used to predict the model for regression
+ * @param model
+ * @param Xarray
+ * @param Xlength
+ * @return
+ */
 float predict_for_regression(Linear_model* model, float Xarray[], int Xlength) {
     model->Xk = getVectorXfFromLineVector(Xarray, Xlength);
     return (model->W.transpose() * model->Xk)(0);
@@ -91,7 +99,8 @@ MatrixXf getMatrixXfFromLineMatrix(float table[], int rows, int cols) {
  * @param learning_rate
  * @return
  */
-void train(Linear_model* model, float Xarray[], int Xrows, int Xcols, float Yarray[], int Ylength, int epochs, float learning_rate) {
+void train(Linear_model* model, float Xarray[], int Xrows, int Xcols,
+           float Yarray[], int Ylength, int epochs, float learning_rate) {
 
     auto X = getMatrixXfFromLineMatrix(Xarray, Xrows, Xcols);
     auto Y = getVectorXfFromLineVector(Yarray, Ylength);
@@ -106,8 +115,7 @@ void train(Linear_model* model, float Xarray[], int Xrows, int Xcols, float Yarr
 
 
         GXk = predict_C(model, Xk);
-//        cout << "GXk: " << GXk << endl;
-//        cout << " Calc: " << endl << learning_rate * (Y(k) - GXk) << endl;
+
         model->W = model->W + learning_rate * (Y(k) - GXk) * Xk;
     }
 }
@@ -128,8 +136,17 @@ Linear_model* create_linear_model(int nbInputs) {
     return model;
 }
 
-
-Linear_model* create_linear_model_for_regression(float Xarray[], int Xrows, int Xcols, float Yarray[], int Ylength) {
+/**
+ * This function creates a model for regression
+ * @param Xarray
+ * @param Xrows
+ * @param Xcols
+ * @param Yarray
+ * @param Ylength
+ * @return
+ */
+Linear_model* create_linear_model_for_regression(float Xarray[], int Xrows, int Xcols,
+                                                 float Yarray[], int Ylength) {
     Linear_model *model = new Linear_model;
 
 
@@ -138,7 +155,8 @@ Linear_model* create_linear_model_for_regression(float Xarray[], int Xrows, int 
     Y = VectorXf::Map(Yarray, Ylength);
     auto X = getMatrixXfFromLineMatrix(Xarray, Xrows, Xcols);
 
-    VectorXf W = ((X.transpose() * X).completeOrthogonalDecomposition().pseudoInverse() *X.transpose()) * Y;
+    VectorXf W = ((X.transpose() * X).completeOrthogonalDecomposition()
+            .pseudoInverse() *X.transpose()) * Y;
 
     model->W = W;
     return model;
