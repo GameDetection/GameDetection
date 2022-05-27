@@ -2,6 +2,8 @@
 #include "linear_model.h"
 using namespace std;
 int main() {
+
+
     //create a dataSet for regression
     float X[8] = {1, 1, 2, 2, 3,3,4,4};
     float Xx[4][2] = {{1, 1}, {2, 2}, {3, 3}, {4, 4}};
